@@ -1,1 +1,2 @@
-export { MainHeader } from "./MainHeader";
+export { MainHeader } from "./MainHeader/MainHeader";
+export { NavLink } from "./NavLink/NavLink";
