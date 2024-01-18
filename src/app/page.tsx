@@ -1,17 +1,21 @@
 "use client";
-import styles from "./page.module.css";
 import { getImages } from "@/services/requests";
-import {  useQuery } from "@tanstack/react-query";
-import { ImageList, ImageListItem } from "@mui/material/";
-import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import { Box, CircularProgress, Typography } from "@mui/material/";
+import Grid from "@mui/material/Unstable_Grid2";
+import { PictureCard, MainHeader } from "@/components";
 
-type Images = {
+type Image = {
   id: string;
   slug: string;
   created_at: string;
   updated_at: string;
+  description: string;
+  alt_description: string;
+  liked_by_user: boolean;
+  likes: number;
   urls: {
-    small: string,
+    small: string;
   };
 };
 
@@ -20,24 +24,35 @@ export default function Home() {
     queryKey: ["first-visit-images"],
     queryFn: getImages,
   });
+
+  if(isError) return <Typography variant="h1">Error happened while fetching images</Typography>;
+
   return (
-    <main style={{ marginTop: "7.5rem" }}>
-      {!isPending && (
-        <ImageList cols={3} rowHeight={257}>
-          {data.map((item: Images) => (
-            <ImageListItem key={item.id}>
-              <Image
-                src={item.urls.small}
-                alt="Picture"
-                loading="lazy"
-                width="400"
-                height="267"
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-      )}
-    </main>
+    <Box component="main" sx={{ marginTop: "10rem", justifyContent: "center" }}>
+      <Grid
+        container
+        sx={{
+          justifyContent: "space-evenly",
+        }}
+      >
+        {!isPending ? (
+          data.map((item: Image) => (
+            <PictureCard
+              key={item.id}
+              url={item.urls.small}
+              likedByUser={item.liked_by_user}
+              likes={item.likes}
+            />
+          ))
+        ) : (
+          <CircularProgress
+            size={100}
+            sx={{
+              marginTop: "5rem",
+            }}
+          />
+        )}
+      </Grid>
+    </Box>
   );
-  
 }
