@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { MainHeader } from "@/components";
-import TanStackProvider from "@/providers/TanStack";
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,10 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <TanStackProvider>
-          <MainHeader />
           {children}
-        </TanStackProvider>
       </body>
     </html>
   );

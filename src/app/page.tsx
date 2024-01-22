@@ -1,9 +1,10 @@
 "use client";
 import { getImages } from "@/services/requests";
-import { useQuery } from "@tanstack/react-query";
 import { Box, CircularProgress, Typography } from "@mui/material/";
 import Grid from "@mui/material/Unstable_Grid2";
 import { PictureCard, MainHeader } from "@/components";
+import { useEffect, useState, useContext } from "react";
+import { GlobalContext } from "@/providers/context";
 
 type Image = {
   id: string;
@@ -20,39 +21,50 @@ type Image = {
 };
 
 export default function Home() {
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ["first-visit-images"],
-    queryFn: getImages,
-  });
+  const [isPending, setIsPending] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
 
-  if(isError) return <Typography variant="h1">Error happened while fetching images</Typography>;
+  useEffect(() => {
+    async function getFirstImages() {
+      setIsPending(true);
+      setSearchResult(await getImages());
+      setIsPending(false);
+    }
+    getFirstImages();
+  }, []);
 
   return (
-    <Box component="main" sx={{ marginTop: "10rem", justifyContent: "center" }}>
-      <Grid
-        container
-        sx={{
-          justifyContent: "space-evenly",
-        }}
+    <>
+      <MainHeader searchHandler={setSearchResult} setIsPending={setIsPending} />
+      <Box
+        component="main"
+        sx={{ marginTop: "10rem", justifyContent: "center" }}
       >
-        {!isPending ? (
-          data.map((item: Image) => (
-            <PictureCard
-              key={item.id}
-              url={item.urls.small}
-              likedByUser={item.liked_by_user}
-              likes={item.likes}
+        <Grid
+          container
+          sx={{
+            justifyContent: "space-evenly",
+          }}
+        >
+          {!isPending ? (
+            searchResult?.map((item: Image) => (
+              <PictureCard
+                key={item.id}
+                url={item.urls.small}
+                likedByUser={item.liked_by_user}
+                likes={item.likes}
+              />
+            ))
+          ) : (
+            <CircularProgress
+              size={100}
+              sx={{
+                marginTop: "5rem",
+              }}
             />
-          ))
-        ) : (
-          <CircularProgress
-            size={100}
-            sx={{
-              marginTop: "5rem",
-            }}
-          />
-        )}
-      </Grid>
-    </Box>
+          )}
+        </Grid>
+      </Box>
+    </>
   );
 }

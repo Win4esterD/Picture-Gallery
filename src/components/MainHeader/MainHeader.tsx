@@ -1,9 +1,16 @@
-'use client'
-import { AppBar, OutlinedInput } from "@mui/material";
+"use client";
+import { AppBar, OutlinedInput, Button } from "@mui/material";
 import { NavLink } from "..";
-import {getImagesByQuery} from '@/services/requests';
+import { getImagesByQuery } from "@/services/requests";
+import { EventHandler, KeyboardEvent, useState, Dispatch, SetStateAction } from "react";
 
-export function MainHeader() {
+type MainHeaderProps = {
+  searchHandler: Dispatch<SetStateAction<never[]>>;
+  setIsPending: Dispatch<SetStateAction<boolean>>;
+};
+
+export function MainHeader({ searchHandler, setIsPending }: MainHeaderProps) {
+  const [searchQuery, setSearchQuery] = useState("");
   return (
     <AppBar
       sx={{
@@ -18,14 +25,27 @@ export function MainHeader() {
         sx={{ backgroundColor: "#FFF", width: "22rem", height: "2.5rem" }}
         color="secondary"
         placeholder="Enter search query"
-        onKeyUp={(e) => {
-          if(e.code === "Enter") {
-            //@ts-ignorets-ignore
-            console.log(getImagesByQuery(e.target.value));
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onKeyUp={async (e: KeyboardEvent) => {
+          if (e.code === "Enter") {
+            setIsPending(true);
+            searchHandler(await getImagesByQuery(searchQuery));
+            setIsPending(false);
           }
         }}
       ></OutlinedInput>
-      <NavLink link="/" text="REGISTER" />
+      <Button
+        variant="contained"
+        color="secondary"
+        size="large"
+        onClick={async () => {
+          setIsPending(true)
+          searchHandler(await getImagesByQuery(searchQuery));
+          setIsPending(false);
+        }}
+      >
+        SEARCH
+      </Button>
     </AppBar>
   );
 }
