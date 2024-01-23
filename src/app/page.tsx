@@ -1,5 +1,5 @@
 "use client";
-import { getImages } from "@/services/requests";
+import { getImages, getImagesByQuery } from "@/services/requests";
 import { Box, CircularProgress, Typography } from "@mui/material/";
 import Grid from "@mui/material/Unstable_Grid2";
 import { PictureCard, MainHeader } from "@/components";
@@ -20,16 +20,20 @@ type Image = {
   };
 };
 
-export default function Home() {
+export default function Home({searchParams}: {searchParams: {query: string}}) {
   const [isPending, setIsPending] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
+
 
   useEffect(() => {
     async function getFirstImages() {
       setIsPending(true);
-      setSearchResult(await getImages());
+      !searchParams.query
+        ? setSearchResult(await getImages())
+        : setSearchResult(await getImagesByQuery(searchParams.query));
       setIsPending(false);
     }
+    
     getFirstImages();
   }, []);
 
@@ -53,6 +57,7 @@ export default function Home() {
                 url={item.urls.small}
                 likedByUser={item.liked_by_user}
                 likes={item.likes}
+                id={item.id}
               />
             ))
           ) : (

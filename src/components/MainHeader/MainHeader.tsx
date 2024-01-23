@@ -1,16 +1,24 @@
 "use client";
 import { AppBar, OutlinedInput, Button } from "@mui/material";
-import { NavLink } from "..";
 import { getImagesByQuery } from "@/services/requests";
-import { EventHandler, KeyboardEvent, useState, Dispatch, SetStateAction } from "react";
+import { KeyboardEvent, useState, Dispatch, SetStateAction } from "react";
+import { useRouter } from "next/navigation";
 
 type MainHeaderProps = {
-  searchHandler: Dispatch<SetStateAction<never[]>>;
-  setIsPending: Dispatch<SetStateAction<boolean>>;
+  searchHandler?: Dispatch<SetStateAction<never[]>>;
+  setIsPending?: Dispatch<SetStateAction<boolean>>;
 };
 
 export function MainHeader({ searchHandler, setIsPending }: MainHeaderProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+
+  async function peformAnimation() {
+    setIsPending ? setIsPending(true) : "";
+    searchHandler ? searchHandler(await getImagesByQuery(searchQuery)) : "";
+    setIsPending ? setIsPending(false) : "";
+  }
+
   return (
     <AppBar
       sx={{
@@ -28,9 +36,8 @@ export function MainHeader({ searchHandler, setIsPending }: MainHeaderProps) {
         onChange={(e) => setSearchQuery(e.target.value)}
         onKeyUp={async (e: KeyboardEvent) => {
           if (e.code === "Enter") {
-            setIsPending(true);
-            searchHandler(await getImagesByQuery(searchQuery));
-            setIsPending(false);
+            router.push("/?query=" + searchQuery);
+            await peformAnimation();
           }
         }}
       ></OutlinedInput>
@@ -39,9 +46,8 @@ export function MainHeader({ searchHandler, setIsPending }: MainHeaderProps) {
         color="secondary"
         size="large"
         onClick={async () => {
-          setIsPending(true)
-          searchHandler(await getImagesByQuery(searchQuery));
-          setIsPending(false);
+          router.push("/?query=" + searchQuery);
+          await peformAnimation();
         }}
       >
         SEARCH

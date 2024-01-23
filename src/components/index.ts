@@ -1,3 +1,3 @@
 export { MainHeader } from "./MainHeader/MainHeader";
-export { NavLink } from "./NavLink/NavLink";
+export { MainLink } from "./MainLink/MainLink";
 export {PictureCard} from './PictureCard/PictureCard';
