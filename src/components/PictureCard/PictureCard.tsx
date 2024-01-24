@@ -28,7 +28,6 @@ export function PictureCard({ url, likedByUser, likes, id }: PictureCardProps) {
           </SvgIcon>
           <Typography sx={{ paddingLeft: "0.1rem" }}>{likes}</Typography>
           <Typography sx={{ paddingLeft: "0.1rem" }} component="p">
-            {" "}
             Likes
           </Typography>
         </Box>

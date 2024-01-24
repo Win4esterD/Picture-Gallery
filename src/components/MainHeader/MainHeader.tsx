@@ -7,16 +7,22 @@ import { useRouter } from "next/navigation";
 type MainHeaderProps = {
   searchHandler?: Dispatch<SetStateAction<never[]>>;
   setIsPending?: Dispatch<SetStateAction<boolean>>;
+  setPages?: Dispatch<SetStateAction<number>>;
 };
 
-export function MainHeader({ searchHandler, setIsPending }: MainHeaderProps) {
+export function MainHeader({ searchHandler, setIsPending, setPages }: MainHeaderProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
   async function peformAnimation() {
-    setIsPending ? setIsPending(true) : "";
-    searchHandler ? searchHandler(await getImagesByQuery(searchQuery)) : "";
-    setIsPending ? setIsPending(false) : "";
+    router.push(`/?query=${searchQuery}&page=1`);
+    setIsPending && setIsPending(true);
+    if(searchHandler) {
+      const response = await getImagesByQuery(searchQuery);
+      searchHandler(response.results);
+      setPages && setPages(response.total_pages);
+    }
+    setIsPending && setIsPending(false);
   }
 
   return (
@@ -36,7 +42,6 @@ export function MainHeader({ searchHandler, setIsPending }: MainHeaderProps) {
         onChange={(e) => setSearchQuery(e.target.value)}
         onKeyUp={async (e: KeyboardEvent) => {
           if (e.code === "Enter") {
-            router.push("/?query=" + searchQuery);
             await peformAnimation();
           }
         }}
@@ -46,7 +51,6 @@ export function MainHeader({ searchHandler, setIsPending }: MainHeaderProps) {
         color="secondary"
         size="large"
         onClick={async () => {
-          router.push("/?query=" + searchQuery);
           await peformAnimation();
         }}
       >
