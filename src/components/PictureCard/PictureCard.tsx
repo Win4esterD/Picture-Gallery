@@ -16,7 +16,7 @@ type PictureCardProps = {
 export function PictureCard({ url, likedByUser, likes, id }: PictureCardProps) {
   return (
     <Box sx={{ marginTop: "2rem" }}>
-      <Image src={url} alt="picture" width="360" height="300" priority={true}/>
+      <Image src={url} alt="picture" width="360" height="300" priority={true} />
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box sx={{ display: "flex" }}>
           <SvgIcon sx={{ cursor: "pointer" }}>
@@ -32,7 +32,7 @@ export function PictureCard({ url, likedByUser, likes, id }: PictureCardProps) {
           </Typography>
         </Box>
         <Button variant="outlined">
-          <MainLink href={id} text="View picture" />
+          <MainLink href={`/photos/${id}`} text="View picture" />
         </Button>
       </Box>
     </Box>

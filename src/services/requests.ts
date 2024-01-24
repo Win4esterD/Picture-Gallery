@@ -28,18 +28,19 @@ export async function getImagesByQuery(query: string, page: string = '1') {
     );
     return data;
   } catch (err) {
-    console.log((err as Error).message);
+    throw err;
   }
 }
 
+
 export async function getPhotoById(id: string) {
   try {
-    const response = axios.get(url + id, {
+    const response = await fetch(url + id, {
       headers: {
         Authorization: `Client-ID ${accessKey}`,
       },
     });
-    return response;
+    return response.json()
   } catch (err) {
     console.log((err as Error).message);
   }
