@@ -1,7 +1,7 @@
 import { getPhotoById } from "@/services/requests";
 import Image from "next/image";
 import { MainHeader } from "@/components";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 
 type PhotoParams = {
@@ -13,7 +13,7 @@ type PhotoParams = {
 export default async function Photo({params}: PhotoParams) {
   const pictureData = await getPhotoById(params.photoId);
   if (pictureData.errors) {
-    redirect('/404/');
+    notFound();
   }
     return (
       <>
