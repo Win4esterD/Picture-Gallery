@@ -1,3 +1,4 @@
 export { MainHeader } from "./MainHeader/MainHeader";
-export { MainLink } from "./MainLink/MainLink";
+export { ButtonLink } from "./ButtonLink/ButtonLink";
 export {PictureCard} from './PictureCard/PictureCard';
+export {Likes} from "./Likes/Likes";

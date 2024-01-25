@@ -1,0 +1,1 @@
+export const headerHeight = '7.5rem';

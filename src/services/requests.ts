@@ -1,7 +1,8 @@
 import axios from "axios";
 import { url, accessKey, searchUrl } from "./apiVariables";
+import { ImageData, responseQuery } from "@/types/ImageData";
 
-export async function getImages() {
+export async function getImages(): Promise<never[]> {
   try {
     const response = await fetch(url + "?per_page=28", {
       cache: "no-cache",
@@ -11,12 +12,14 @@ export async function getImages() {
     });
     return response.json();
   } catch (error) {
-    console.log((error as Error).message);
+    throw error;
   }
 }
 
-
-export async function getImagesByQuery(query: string, page: string = '1') {
+export async function getImagesByQuery(
+  query: string,
+  page: string = "1"
+) {
   try {
     const { data } = await axios.get(
       `${searchUrl}&query=${query}&page=${page}`,
@@ -32,7 +35,6 @@ export async function getImagesByQuery(query: string, page: string = '1') {
   }
 }
 
-
 export async function getPhotoById(id: string) {
   try {
     const response = await fetch(url + id, {
@@ -40,7 +42,7 @@ export async function getPhotoById(id: string) {
         Authorization: `Client-ID ${accessKey}`,
       },
     });
-    return response.json()
+    return response.json();
   } catch (err) {
     console.log((err as Error).message);
   }

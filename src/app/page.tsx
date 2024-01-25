@@ -6,29 +6,17 @@ import { PictureCard, MainHeader } from "@/components";
 import { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { GlobalContext } from "@/providers/context";
+import { ImageData } from "@/types/ImageData";
 
-type Image = {
-  id: string;
-  slug: string;
-  created_at: string;
-  updated_at: string;
-  description: string;
-  alt_description: string;
-  liked_by_user: boolean;
-  likes: number;
-  urls: {
-    small: string;
-  };
-};
 
 export default function Home({
   searchParams,
 }: {
   searchParams: { query: string; page: string };
-}) {
-  const [isPending, setIsPending] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
-  const [pages, setPages] = useState(0);
+}): JSX.Element {
+  const [isPending, setIsPending] = useState<boolean>(false);
+  const [searchResult, setSearchResult] = useState<never[]>([]);
+  const [pages, setPages] = useState<number>(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -68,7 +56,7 @@ export default function Home({
           }}
         >
           {!isPending ? (
-            searchResult?.map((item: Image) => (
+            searchResult?.map((item: ImageData) => (
               <PictureCard
                 key={item.id}
                 url={item.urls.small}
@@ -106,7 +94,7 @@ export default function Home({
                 searchParams.query,
                 page.toString()
               );
-              setSearchResult(response.results);
+              setSearchResult(response?.results);
               setIsPending(false);
             }}
           />

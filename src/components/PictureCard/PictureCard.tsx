@@ -1,9 +1,7 @@
 import Image from "next/image";
-import { Box, Typography, Button } from "@mui/material";
-import SvgIcon from "@mui/material/SvgIcon";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { MainLink } from "..";
+import { Box, Button } from "@mui/material";
+import { ButtonLink } from "..";
+import { Likes } from "..";
 
 
 type PictureCardProps = {
@@ -18,21 +16,13 @@ export function PictureCard({ url, likedByUser, likes, id }: PictureCardProps) {
     <Box sx={{ marginTop: "2rem" }}>
       <Image src={url} alt="picture" width="360" height="300" priority={true} />
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Box sx={{ display: "flex" }}>
-          <SvgIcon sx={{ cursor: "pointer" }}>
-            {!likedByUser ? (
-              <FavoriteBorderIcon />
-            ) : (
-              <FavoriteIcon sx={{ color: "red" }} />
-            )}
-          </SvgIcon>
-          <Typography sx={{ paddingLeft: "0.1rem" }}>{likes}</Typography>
-          <Typography sx={{ paddingLeft: "0.1rem" }} component="p">
-            Likes
-          </Typography>
-        </Box>
+        <Likes likedByUser={likedByUser} likes={likes} />
         <Button variant="outlined">
-          <MainLink href={`/photos/${id}`} text="View picture" />
+          <ButtonLink
+            href={`/photos/${id}`}
+          >
+            View picture
+          </ButtonLink>
         </Button>
       </Box>
     </Box>
