@@ -20,7 +20,7 @@ export function Likes({ likedByUser, likes, size='3.5rem' }: LikesProps): JSX.El
         )}
       </SvgIcon>
       <Typography
-        sx={{ paddingLeft: "0.1rem", fontSize: `${parseInt(size) / 2}rem` }}
+        sx={{ paddingLeft: "0.1rem", fontSize: `${parseInt(size) / 2}rem`, fontWeight: 600 }}
       >
         {likes}
       </Typography>

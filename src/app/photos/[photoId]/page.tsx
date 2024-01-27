@@ -11,6 +11,10 @@ type PhotoParams = {
   };
 };
 
+type tags = {
+  title: string;
+};
+
 export default async function Photo({
   params,
 }: PhotoParams): Promise<JSX.Element> {
@@ -26,7 +30,7 @@ export default async function Photo({
         sx={{
           marginTop: `calc(${headerHeight})`,
           display: "flex",
-          height: `calc(100vh - ${headerHeight} - 1.2rem)`,
+          height: `calc(100vh - ${headerHeight})`,
         }}
       >
         <Image
@@ -52,10 +56,10 @@ export default async function Photo({
               gap: "3rem",
             }}
           >
-            <Typography sx={{ fontSize: "1.5rem" }}>
+            <Typography sx={{ fontSize: "1.5rem", paddingRight: "5%" }}>
               <b>Author:</b> {pictureData?.user.username}
             </Typography>
-            <Typography sx={{ fontSize: "1.5rem" }}>
+            <Typography sx={{ fontSize: "1.5rem", paddingRight: "5%" }}>
               <b>Description:</b>
               {pictureData?.description
                 ? pictureData.description
@@ -79,6 +83,28 @@ export default async function Photo({
                 <Button>
                   <ButtonLink href={pictureData?.urls.thumb}>Small</ButtonLink>
                 </Button>
+              </ButtonGroup>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                paddingRight: "2%",
+                gap: "1rem",
+              }}
+            >
+              <Typography variant="h4">Related topics</Typography>
+              <ButtonGroup
+                sx={{ display: "flex", flexWrap: "wrap", paddingRight: "2%" }}
+                variant="text"
+              >
+                {pictureData?.tags.map((item: tags, index: number) => (
+                  <Button key={index}>
+                    <ButtonLink href={`/?query=${item.title}&page=1`}>
+                      {item.title}
+                    </ButtonLink>
+                  </Button>
+                ))}
               </ButtonGroup>
             </Box>
           </Box>
