@@ -6,19 +6,24 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 type LikesProps = {
   likedByUser: boolean;
   likes: number;
+  size?: string;
 };
 
-export function Likes({ likedByUser, likes }: LikesProps): JSX.Element {
+export function Likes({ likedByUser, likes, size='3.5rem' }: LikesProps): JSX.Element {
   return (
     <Box sx={{ display: "flex" }}>
-      <SvgIcon sx={{ cursor: "pointer" }}>
+      <SvgIcon sx={{ cursor: "pointer", fontSize: size }}>
         {!likedByUser ? (
           <FavoriteBorderIcon />
         ) : (
           <FavoriteIcon sx={{ color: "red" }} />
         )}
       </SvgIcon>
-      <Typography sx={{ paddingLeft: "0.1rem" }}>{likes}</Typography>
+      <Typography
+        sx={{ paddingLeft: "0.1rem", fontSize: `${parseInt(size) / 2}rem` }}
+      >
+        {likes}
+      </Typography>
     </Box>
   );
 }

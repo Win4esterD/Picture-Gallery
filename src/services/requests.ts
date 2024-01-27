@@ -41,6 +41,7 @@ export async function getPhotoById(id: string) {
       headers: {
         Authorization: `Client-ID ${accessKey}`,
       },
+      cache: 'no-cache',
     });
     return response.json();
   } catch (err) {

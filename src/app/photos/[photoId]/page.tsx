@@ -24,10 +24,9 @@ export default async function Photo({
       <Box
         component="main"
         sx={{
-          marginTop: `calc(${headerHeight} + 1.2rem)`,
+          marginTop: `calc(${headerHeight})`,
           display: "flex",
-          alignItems: "center",
-          justifyItems: "center",
+          height: `calc(100vh - ${headerHeight} - 1.2rem)`,
         }}
       >
         <Image
@@ -36,34 +35,53 @@ export default async function Photo({
           width={800}
           height={800}
           priority={true}
-          style={{ height: `calc(100vh - ${headerHeight} - 1.2rem)` }}
+          style={{ width: "50%", height: "100%" }}
         />
-        <Box>
-          <Typography>Author: {pictureData?.user.username}</Typography>
-          <Typography>
-            Description:
-            {pictureData?.description
-              ? pictureData.description
-              : pictureData.alt_description}
-          </Typography>
-          <Likes
-            likes={pictureData?.likes}
-            likedByUser={pictureData?.liked_by_user}
-          />
-          <ButtonGroup>
-            <Button>
-              <ButtonLink href={pictureData?.urls.full}>Full</ButtonLink>
-            </Button>
-            <Button>
-              <ButtonLink href={pictureData?.urls.regular}>Large</ButtonLink>
-            </Button>
-            <Button>
-              <ButtonLink href={pictureData?.urls.small}>Small</ButtonLink>
-            </Button>
-            <Button>
-              <ButtonLink href={pictureData?.urls.thumb}>Very small</ButtonLink>
-            </Button>
-          </ButtonGroup>
+        <Box
+          sx={{
+            height: `calc(100vh - ${headerHeight})`,
+            width: "50%",
+          }}
+        >
+          <Box
+            sx={{
+              paddingLeft: "10%",
+              marginTop: "1.5rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "3rem",
+            }}
+          >
+            <Typography sx={{ fontSize: "1.5rem" }}>
+              <b>Author:</b> {pictureData?.user.username}
+            </Typography>
+            <Typography sx={{ fontSize: "1.5rem" }}>
+              <b>Description:</b>
+              {pictureData?.description
+                ? pictureData.description
+                : pictureData.alt_description}
+            </Typography>
+            <Likes
+              likes={pictureData?.likes}
+              likedByUser={pictureData?.liked_by_user}
+            />
+            <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <Typography variant="h4">Download</Typography>
+              <ButtonGroup>
+                <Button>
+                  <ButtonLink href={pictureData?.urls.regular}>
+                    Large
+                  </ButtonLink>
+                </Button>
+                <Button>
+                  <ButtonLink href={pictureData?.urls.small}>Mediun</ButtonLink>
+                </Button>
+                <Button>
+                  <ButtonLink href={pictureData?.urls.thumb}>Small</ButtonLink>
+                </Button>
+              </ButtonGroup>
+            </Box>
+          </Box>
         </Box>
       </Box>
     </>
