@@ -40,17 +40,17 @@ export function MainHeader({
         alignItems: "center",
       }}
     >
-      <OutlinedInput
-        sx={{ backgroundColor: "#FFF", width: "22rem", height: "2.5rem" }}
-        color="secondary"
-        placeholder="Enter search query"
-        onChange={(e) => setSearchQuery(e.target.value)}
-        onKeyUp={async (e: KeyboardEvent) => {
-          if (e.code === "Enter") {
-            await peformAnimation();
-          }
-        }}
-      ></OutlinedInput>
+        <OutlinedInput
+          sx={{ backgroundColor: "#FFF", width: "22rem", height: "2.5rem" }}
+          color="secondary"
+          placeholder="Enter search query"
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyUp={async (e: KeyboardEvent) => {
+            if (e.code === "Enter") {
+              await peformAnimation();
+            }
+          }}
+        ></OutlinedInput>
       <Button
         variant="contained"
         color="secondary"

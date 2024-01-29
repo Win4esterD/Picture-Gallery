@@ -1,8 +1,8 @@
 import { getPhotoById } from "@/services/requests";
 import Image from "next/image";
-import { MainHeader, Likes, ButtonLink } from "@/components";
+import { MainHeader, Likes, ButtonLink, PhotoSizeButtons } from "@/components";
 import { notFound } from "next/navigation";
-import { Typography, Box, ButtonGroup, Button } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import { headerHeight } from "@/components/MainHeader/header-config";
 
 type PhotoParams = {
@@ -22,6 +22,7 @@ export default async function Photo({
   if (pictureData.errors) {
     notFound();
   }
+
   return (
     <>
       <MainHeader />
@@ -50,17 +51,34 @@ export default async function Photo({
           <Box
             sx={{
               paddingLeft: "10%",
-              marginTop: "1.5rem",
+              marginTop: "3vh",
               display: "flex",
               flexDirection: "column",
-              gap: "3rem",
+              gap: "5vh",
+              "@media (max-width: 1100px)": {
+                gap: "3vh",
+              },
             }}
           >
-            <Typography sx={{ fontSize: "1.5rem", paddingRight: "5%" }}>
+            <Typography
+              sx={{
+                fontSize: "1.5rem",
+                paddingRight: "5%",
+                "@media (max-width: 1100px)": { fontSize: "1rem" },
+                "@media (max-width: 600px)": { fontSize: "0.9rem" },
+              }}
+            >
               <b>Author:</b> {pictureData?.user.username}
             </Typography>
-            <Typography sx={{ fontSize: "1.5rem", paddingRight: "5%" }}>
-              <b>Description:</b>
+            <Typography
+              sx={{
+                fontSize: "1.5rem",
+                paddingRight: "5%",
+                "@media (max-width: 1100px)": { fontSize: "1rem" },
+                "@media (max-width: 600px)": { fontSize: "0.8rem" },
+              }}
+            >
+              <b>Description: </b>
               {pictureData?.description
                 ? pictureData.description
                 : pictureData.alt_description}
@@ -70,42 +88,56 @@ export default async function Photo({
               likedByUser={pictureData?.liked_by_user}
             />
             <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <Typography variant="h4">Download</Typography>
-              <ButtonGroup>
-                <Button>
-                  <ButtonLink href={pictureData?.urls.regular}>
-                    Large
-                  </ButtonLink>
-                </Button>
-                <Button>
-                  <ButtonLink href={pictureData?.urls.small}>Mediun</ButtonLink>
-                </Button>
-                <Button>
-                  <ButtonLink href={pictureData?.urls.thumb}>Small</ButtonLink>
-                </Button>
-              </ButtonGroup>
+              <Typography
+                variant="h4"
+                sx={{
+                  "@media (max-width: 1100px)": {
+                    fontSize: "1.5rem",
+                  },
+                }}
+              >
+                Download
+              </Typography>
+              <PhotoSizeButtons
+                regular={pictureData?.urls.regular}
+                small={pictureData?.urls.small}
+                thumb={pictureData?.urls.thumb}
+              />
             </Box>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 paddingRight: "2%",
-                gap: "1rem",
+                gap: "1%",
               }}
             >
-              <Typography variant="h4">Related topics</Typography>
-              <ButtonGroup
-                sx={{ display: "flex", flexWrap: "wrap", paddingRight: "2%" }}
-                variant="text"
+              <Typography
+                variant="h4"
+                sx={{
+                  "@media (max-width: 1100px)": {
+                    fontSize: "1.5rem",
+                  },
+                }}
+              >
+                Related topics
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "1%",
+                  marginTop: "1vh",
+                }}
               >
                 {pictureData?.tags.map((item: tags, index: number) => (
-                  <Button key={index}>
+                  <Button key={index} variant="outlined" size="small">
                     <ButtonLink href={`/?query=${item.title}&page=1`}>
                       {item.title}
                     </ButtonLink>
                   </Button>
                 ))}
-              </ButtonGroup>
+              </Box>
             </Box>
           </Box>
         </Box>

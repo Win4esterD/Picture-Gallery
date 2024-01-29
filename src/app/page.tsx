@@ -36,7 +36,7 @@ export default function Home({
     }
 
     getFirstImages();
-  }, []);
+  }, [searchParams.page, searchParams.query]);
 
   return (
     <>
