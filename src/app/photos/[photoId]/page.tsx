@@ -1,0 +1,83 @@
+import {getPhotoById} from '@/services/requests';
+import Image from 'next/image';
+import {MainHeader, Likes, ButtonLink, PhotoSizeButtons} from '@/components';
+import {notFound} from 'next/navigation';
+import {Typography, Box, Button} from '@mui/material';
+import styleModule from './photos.module.css';
+import {styles} from './singlePagePhotoStyles';
+
+type PhotoParams = {
+  params: {
+    photoId: string;
+  };
+};
+
+type tags = {
+  title: string;
+};
+
+export default async function Photo({
+  params,
+}: PhotoParams): Promise<JSX.Element> {
+  const pictureData = await getPhotoById(params.photoId);
+  if (pictureData.errors) {
+    notFound();
+  }
+
+  return (
+    <>
+      <MainHeader />
+      <Box component="main" sx={styles.main}>
+        <Image
+          src={pictureData?.urls?.regular}
+          alt="picture"
+          width={800}
+          height={800}
+          priority={true}
+          className={styleModule.photo}
+        />
+        <Box sx={styles.rightBlock}>
+          <Box sx={styles.rightBlockWrapper}>
+            <Typography sx={styles.author}>
+              <b>Author:</b> {pictureData?.user.username}
+            </Typography>
+            <Typography sx={styles.description}>
+              <b>Description: </b>
+              {pictureData?.description
+                ? pictureData.description
+                : pictureData.alt_description}
+            </Typography>
+            <Likes
+              likes={pictureData?.likes}
+              likedByUser={pictureData?.liked_by_user}
+            />
+            <Box sx={styles.downloadButtonsBlock}>
+              <Typography variant="h4" sx={styles.download}>
+                Download
+              </Typography>
+              <PhotoSizeButtons
+                regular={pictureData?.urls.regular}
+                small={pictureData?.urls.small}
+                thumb={pictureData?.urls.thumb}
+              />
+            </Box>
+            <Box sx={styles.relatedTopicsBlock}>
+              <Typography variant="h4" sx={styles.relatedTopicsHeader}>
+                Related topics
+              </Typography>
+              <Box sx={styles.relatedTopicsButtons}>
+                {pictureData?.tags.map((item: tags, index: number) => (
+                  <Button key={index} variant="outlined" size="small">
+                    <ButtonLink href={`/?query=${item.title}&page=1`}>
+                      {item.title}
+                    </ButtonLink>
+                  </Button>
+                ))}
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </>
+  );
+}
