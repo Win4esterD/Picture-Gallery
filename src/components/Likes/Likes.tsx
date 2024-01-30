@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import SvgIcon from "@mui/material/SvgIcon";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import useMediaQuery from "@mui/material";
+import { queries } from "@/utils/queries/queries";
 
 type LikesProps = {
   likedByUser: boolean;
@@ -21,7 +21,7 @@ export function Likes({ likedByUser, likes }: LikesProps): JSX.Element {
         sx={{
           cursor: "pointer",
           fontSize: sizes.desktop,
-          "@media (max-width: 1100px)": {
+          [queries.smallDesktop]: {
             fontSize: sizes.smallDesktop,
           },
         }}
@@ -37,9 +37,9 @@ export function Likes({ likedByUser, likes }: LikesProps): JSX.Element {
           paddingLeft: "0.1rem",
           fontSize: `${parseInt(sizes.desktop) / 2}rem`,
           fontWeight: 600,
-          "@media (max-width: 1100px)": {
+          [queries.smallDesktop]: {
             fontSize: `${parseInt(sizes.smallDesktop) / 2.3}rem`,
-          }
+          },
         }}
       >
         {likes}

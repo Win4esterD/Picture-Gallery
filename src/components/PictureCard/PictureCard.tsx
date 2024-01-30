@@ -3,6 +3,7 @@ import { Box, Button } from "@mui/material";
 import { ButtonLink } from "..";
 import { Likes } from "..";
 import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 type PictureCardProps = {
   url: string;
@@ -12,10 +13,10 @@ type PictureCardProps = {
 };
 
 export function PictureCard({ url, likedByUser, likes, id }: PictureCardProps) {
-  const router = useRouter();
+  const router: AppRouterInstance = useRouter();
   return (
-    <Box sx={{ marginTop: "2rem" }}>
-      <Image src={url} alt="picture" width="450" height="450" priority={true} />
+    <Box sx={{ marginTop: "2rem", maxWidth: '90%' }}>
+      <Image src={url} alt="picture" width="450" height="450" priority={true} style={{maxWidth: '100%'}}/>
       <Box
         sx={{
           display: "flex",

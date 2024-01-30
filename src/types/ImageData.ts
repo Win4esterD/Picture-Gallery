@@ -1,8 +1,3 @@
-export type responseQuery = {
-  results: Array<ImageData>;
-  total_pages: number;
-};
-
 export type ImageData = {
   id: string;
   slug: string;

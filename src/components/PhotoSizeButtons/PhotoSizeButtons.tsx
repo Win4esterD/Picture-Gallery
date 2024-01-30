@@ -10,11 +10,11 @@ type PhotoSizeButtonsProps = {
 };
 
 export function PhotoSizeButtons({ regular, small, thumb }: PhotoSizeButtonsProps): JSX.Element {
-  const desktop = useMediaQuery("(min-width: 1100px)");
-  const smallDesktop = useMediaQuery("(max-width: 1100px) and (min-width: 801px)");
-  const mobile = useMediaQuery("(max-width: 600px)");
+  const desktop: boolean = useMediaQuery("(min-width: 1100px)");
+  const smallDesktop: boolean = useMediaQuery("(max-width: 1100px) and (min-width: 801px)");
+  const mobile: boolean = useMediaQuery("(max-width: 600px)");
 
-  function determineSize() {
+  function determineSize(): 'small' | 'medium' | 'large' {
     if(desktop) {
       return "large"
     } else if (smallDesktop) {

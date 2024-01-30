@@ -3,12 +3,8 @@ import Image from "next/image";
 import { MainHeader, Likes, ButtonLink, PhotoSizeButtons } from "@/components";
 import { notFound } from "next/navigation";
 import { Typography, Box, Button } from "@mui/material";
-import {
-  headerHeight,
-  headerSmallDesktopHeight,
-} from "@/components/MainHeader/header-config";
-import { queries } from "@/utils/queries/queries";
-import styles from "./photos.module.css";
+import styleModule from "./photos.module.css";
+import { styles } from "./singlePagePhotoStyles";
 
 type PhotoParams = {
   params: {
@@ -31,70 +27,21 @@ export default async function Photo({
   return (
     <>
       <MainHeader />
-      <Box
-        component="main"
-        sx={{
-          marginTop: `calc(${headerHeight})`,
-          display: "flex",
-          height: `calc(100vh - ${headerHeight})`,
-          [queries.smallDesktop]: {
-            marginTop: `calc(${headerSmallDesktopHeight})`,
-            height: `calc(100vh - ${headerSmallDesktopHeight})`,
-          },
-          [queries.bigTablet]: {
-            flexDirection: "column",
-            height: "100%",
-          },
-        }}
-      >
+      <Box component="main" sx={styles.main}>
         <Image
           src={pictureData?.urls?.regular}
           alt="picture"
           width={800}
           height={800}
           priority={true}
-          className={styles.photo}
+          className={styleModule.photo}
         />
-        <Box
-          sx={{
-            height: `calc(100vh - ${headerHeight})`,
-            width: "50%",
-            [queries.bigTablet]: {
-              width: "100%",
-              height: '100%',
-            },
-          }}
-        >
-          <Box
-            sx={{
-              paddingLeft: "10%",
-              marginTop: "3vh",
-              display: "flex",
-              flexDirection: "column",
-              gap: "5vh",
-              [queries.smallDesktop]: {
-                gap: "3vh",
-              },
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "1.5rem",
-                paddingRight: "5%",
-                [queries.smallDesktop]: { fontSize: "1rem" },
-                [queries.tablet]: { fontSize: "0.9rem" },
-              }}
-            >
+        <Box sx={styles.rightBlock}>
+          <Box sx={styles.rightBlockWrapper}>
+            <Typography sx={styles.author}>
               <b>Author:</b> {pictureData?.user.username}
             </Typography>
-            <Typography
-              sx={{
-                fontSize: "1.5rem",
-                paddingRight: "5%",
-                [queries.smallDesktop]: { fontSize: "1rem" },
-                [queries.tablet]: { fontSize: "0.8rem" },
-              }}
-            >
+            <Typography sx={styles.description}>
               <b>Description: </b>
               {pictureData?.description
                 ? pictureData.description
@@ -104,15 +51,8 @@ export default async function Photo({
               likes={pictureData?.likes}
               likedByUser={pictureData?.liked_by_user}
             />
-            <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <Typography
-                variant="h4"
-                sx={{
-                  [queries.smallDesktop]: {
-                    fontSize: "1.5rem",
-                  },
-                }}
-              >
+            <Box sx={styles.downloadButtonsBlock}>
+              <Typography variant="h4" sx={styles.download}>
                 Download
               </Typography>
               <PhotoSizeButtons
@@ -121,32 +61,11 @@ export default async function Photo({
                 thumb={pictureData?.urls.thumb}
               />
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                paddingRight: "2%",
-                gap: "1%",
-              }}
-            >
-              <Typography
-                variant="h4"
-                sx={{
-                  [queries.smallDesktop]: {
-                    fontSize: "1.5rem",
-                  },
-                }}
-              >
+            <Box sx={styles.relatedTopicsBlock}>
+              <Typography variant="h4" sx={styles.relatedTopicsHeader}>
                 Related topics
               </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "1%",
-                  marginTop: "1vh",
-                }}
-              >
+              <Box sx={styles.relatedTopicsButtons}>
                 {pictureData?.tags.map((item: tags, index: number) => (
                   <Button key={index} variant="outlined" size="small">
                     <ButtonLink href={`/?query=${item.title}&page=1`}>

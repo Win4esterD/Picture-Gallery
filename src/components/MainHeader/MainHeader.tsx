@@ -3,8 +3,9 @@ import { AppBar, OutlinedInput, Button, useMediaQuery } from "@mui/material";
 import { getImagesByQuery } from "@/services/requests";
 import { KeyboardEvent, useState, Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/navigation";
-import { headerHeight, headerSmallDesktopHeight } from "./header-config";
 import { queries } from "@/utils/queries/queries";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { headerStyles } from "./styles";
 
 type MainHeaderProps = {
   searchHandler?: Dispatch<SetStateAction<never[]>>;
@@ -17,11 +18,11 @@ export function MainHeader({
   setIsPending,
   setPages,
 }: MainHeaderProps): JSX.Element {
-  const [searchQuery, setSearchQuery] = useState("");
-  const router = useRouter();
-  const smallDesktop = useMediaQuery(queries.smallDesktop)
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const router: AppRouterInstance = useRouter();
+  const smallDesktop: boolean = useMediaQuery(queries.smallDesktop)
 
-  async function peformAnimation() {
+  async function peformAnimation(): Promise<void> {
     router.push(`/?query=${searchQuery}&page=1`);
     setIsPending && setIsPending(true);
     if (searchHandler) {
@@ -33,28 +34,9 @@ export function MainHeader({
   }
 
   return (
-    <AppBar
-      sx={{
-        height: headerHeight,
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        [queries.smallDesktop]: {
-          height: headerSmallDesktopHeight,
-        },
-      }}
-    >
+    <AppBar sx={headerStyles.appBar}>
       <OutlinedInput
-        sx={{
-          backgroundColor: "#FFF",
-          width: "22rem",
-          height: "2.5rem",
-          marginLeft: "1rem",
-          [queries.smallDesktop]: {
-            height: "2rem",
-          },
-        }}
+        sx={headerStyles.input}
         color="secondary"
         placeholder="Enter search query"
         onChange={(e) => setSearchQuery(e.target.value)}
@@ -67,8 +49,8 @@ export function MainHeader({
       <Button
         variant="contained"
         color="secondary"
-        size={!smallDesktop? 'large': 'small'}
-        sx={{ marginRight: "1rem" }}
+        size={!smallDesktop ? "large" : "small"}
+        sx={headerStyles.searchButton}
         onClick={async () => {
           await peformAnimation();
         }}

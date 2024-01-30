@@ -3,11 +3,15 @@ import { getImages, getImagesByQuery } from "@/services/requests";
 import { Box, CircularProgress, Pagination } from "@mui/material/";
 import Grid from "@mui/material/Unstable_Grid2";
 import { PictureCard, MainHeader } from "@/components";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { GlobalContext } from "@/providers/context";
 import { ImageData } from "@/types/ImageData";
-
+import {
+  headerHeight,
+  headerSmallDesktopHeight,
+} from "@/components/MainHeader/header-config";
+import { queries } from "@/utils/queries/queries";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export default function Home({
   searchParams,
@@ -17,10 +21,10 @@ export default function Home({
   const [isPending, setIsPending] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState<never[]>([]);
   const [pages, setPages] = useState<number>(0);
-  const router = useRouter();
+  const router: AppRouterInstance = useRouter();
 
   useEffect(() => {
-    async function getFirstImages() {
+    async function getFirstImages(): Promise<void> {
       setIsPending(true);
       if (!searchParams.query) {
         setSearchResult(await getImages());
@@ -47,7 +51,13 @@ export default function Home({
       />
       <Box
         component="main"
-        sx={{ marginTop: "10rem", justifyContent: "center" }}
+        sx={{
+          marginTop: `calc(${headerHeight} + 2.5rem)`,
+          justifyContent: "center",
+          [queries.smallDesktop]: {
+            marginTop: headerSmallDesktopHeight,
+          },
+        }}
       >
         <Grid
           container
