@@ -1,10 +1,10 @@
-import { getPhotoById } from "@/services/requests";
-import Image from "next/image";
-import { MainHeader, Likes, ButtonLink, PhotoSizeButtons } from "@/components";
-import { notFound } from "next/navigation";
-import { Typography, Box, Button } from "@mui/material";
-import styleModule from "./photos.module.css";
-import { styles } from "./singlePagePhotoStyles";
+import {getPhotoById} from '@/services/requests';
+import Image from 'next/image';
+import {MainHeader, Likes, ButtonLink, PhotoSizeButtons} from '@/components';
+import {notFound} from 'next/navigation';
+import {Typography, Box, Button} from '@mui/material';
+import styleModule from './photos.module.css';
+import {styles} from './singlePagePhotoStyles';
 
 type PhotoParams = {
   params: {

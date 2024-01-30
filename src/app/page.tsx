@@ -1,22 +1,22 @@
-"use client";
-import { getImages, getImagesByQuery } from "@/services/requests";
-import { Box, CircularProgress, Pagination } from "@mui/material/";
-import Grid from "@mui/material/Unstable_Grid2";
-import { PictureCard, MainHeader } from "@/components";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { ImageData } from "@/types/ImageData";
+'use client';
+import {getImages, getImagesByQuery} from '@/services/requests';
+import {Box, CircularProgress, Pagination} from '@mui/material/';
+import Grid from '@mui/material/Unstable_Grid2';
+import {PictureCard, MainHeader} from '@/components';
+import {useEffect, useState} from 'react';
+import {useRouter} from 'next/navigation';
+import {ImageData} from '@/types/ImageData';
 import {
   headerHeight,
   headerSmallDesktopHeight,
-} from "@/components/MainHeader/header-config";
-import { queries } from "@/utils/queries/queries";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+} from '@/components/MainHeader/header-config';
+import {queries} from '@/utils/queries/queries';
+import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 export default function Home({
   searchParams,
 }: {
-  searchParams: { query: string; page: string };
+  searchParams: {query: string; page: string};
 }): JSX.Element {
   const [isPending, setIsPending] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState<never[]>([]);
@@ -31,7 +31,7 @@ export default function Home({
       } else {
         const response = await getImagesByQuery(
           searchParams.query,
-          searchParams.page
+          searchParams.page,
         );
         setSearchResult(response.results);
         setPages(response.total_pages);
@@ -53,7 +53,7 @@ export default function Home({
         component="main"
         sx={{
           marginTop: `calc(${headerHeight} + 2.5rem)`,
-          justifyContent: "center",
+          justifyContent: 'center',
           [queries.smallDesktop]: {
             marginTop: headerSmallDesktopHeight,
           },
@@ -62,7 +62,7 @@ export default function Home({
         <Grid
           container
           sx={{
-            justifyContent: "space-evenly",
+            justifyContent: 'space-evenly',
           }}
         >
           {!isPending ? (
@@ -79,7 +79,7 @@ export default function Home({
             <CircularProgress
               size={100}
               sx={{
-                marginTop: "5rem",
+                marginTop: '5rem',
               }}
             />
           )}
@@ -87,11 +87,11 @@ export default function Home({
         {!isPending && (
           <Pagination
             sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "1.5rem",
-              paddingBottom: "1rem",
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '1.5rem',
+              paddingBottom: '1rem',
             }}
             count={pages >= 200 ? 200 : pages}
             color="primary"
@@ -102,7 +102,7 @@ export default function Home({
               router.push(`?query=${searchParams.query}&page=${page}`);
               const response = await getImagesByQuery(
                 searchParams.query,
-                page.toString()
+                page.toString(),
               );
               setSearchResult(response?.results);
               setIsPending(false);

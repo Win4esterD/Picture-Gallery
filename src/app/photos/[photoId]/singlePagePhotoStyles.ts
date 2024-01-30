@@ -1,8 +1,8 @@
 import {
   headerHeight,
   headerSmallDesktopHeight,
-} from "@/components/MainHeader/header-config";
-import { queries } from "@/utils/queries/queries";
+} from '@/components/MainHeader/header-config';
+import {queries} from '@/utils/queries/queries';
 
 type styles = {
   main: React.CSSProperties;
@@ -20,72 +20,72 @@ type styles = {
 export const styles: styles = {
   main: {
     marginTop: `calc(${headerHeight})`,
-    display: "flex",
+    display: 'flex',
     height: `calc(100vh - ${headerHeight})`,
     [queries.smallDesktop]: {
       marginTop: `calc(${headerSmallDesktopHeight})`,
       height: `calc(100vh - ${headerSmallDesktopHeight})`,
     },
     [queries.bigTablet]: {
-      flexDirection: "column",
-      height: "100%",
+      flexDirection: 'column',
+      height: '100%',
     },
   },
   rightBlock: {
     height: `calc(100vh - ${headerHeight})`,
-    width: "50%",
+    width: '50%',
     [queries.bigTablet]: {
-      width: "100%",
-      height: "100%",
+      width: '100%',
+      height: '100%',
     },
   },
   rightBlockWrapper: {
-    paddingLeft: "10%",
-    marginTop: "3vh",
-    display: "flex",
-    flexDirection: "column",
-    gap: "5vh",
+    paddingLeft: '10%',
+    marginTop: '3vh',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5vh',
     [queries.smallDesktop]: {
-      gap: "3vh",
+      gap: '3vh',
     },
   },
   author: {
-    fontSize: "1.5rem",
-    paddingRight: "5%",
-    [queries.smallDesktop]: { fontSize: "1rem" },
-    [queries.tablet]: { fontSize: "0.9rem" },
+    fontSize: '1.5rem',
+    paddingRight: '5%',
+    [queries.smallDesktop]: {fontSize: '1rem'},
+    [queries.tablet]: {fontSize: '0.9rem'},
   },
   description: {
-    fontSize: "1.5rem",
-    paddingRight: "5%",
-    [queries.smallDesktop]: { fontSize: "1rem" },
-    [queries.tablet]: { fontSize: "0.8rem" },
+    fontSize: '1.5rem',
+    paddingRight: '5%',
+    [queries.smallDesktop]: {fontSize: '1rem'},
+    [queries.tablet]: {fontSize: '0.8rem'},
   },
   downloadButtonsBlock: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "1rem",
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
   },
   download: {
     [queries.smallDesktop]: {
-      fontSize: "1.5rem",
+      fontSize: '1.5rem',
     },
   },
   relatedTopicsBlock: {
-    display: "flex",
-    flexDirection: "column",
-    paddingRight: "2%",
-    gap: "1%",
+    display: 'flex',
+    flexDirection: 'column',
+    paddingRight: '2%',
+    gap: '1%',
   },
   relatedTopicsHeader: {
     [queries.smallDesktop]: {
-      fontSize: "1.5rem",
+      fontSize: '1.5rem',
     },
   },
   relatedTopicsButtons: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "1%",
-    marginTop: "1vh",
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '1%',
+    marginTop: '1vh',
   },
 };

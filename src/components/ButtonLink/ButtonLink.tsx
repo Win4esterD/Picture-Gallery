@@ -1,5 +1,5 @@
-import Link from "next/link";
-import React from "react";
+import Link from 'next/link';
+import React from 'react';
 
 type ButtonLinkProps = {
   href: string;
@@ -15,9 +15,7 @@ export function ButtonLink({
   return (
     <Link
       href={href}
-      style={
-        css ? css : { textDecoration: "none", color: "#1976d2"}
-      }
+      style={css ? css : {textDecoration: 'none', color: '#1976d2'}}
       target="_blank"
     >
       {children}
