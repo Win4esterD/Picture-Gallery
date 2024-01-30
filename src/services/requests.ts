@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {url, accessKey, searchUrl} from './apiVariables';
-import {ImageData, responseQuery} from '@/types/ImageData';
 
 export async function getImages(): Promise<never[]> {
   try {
