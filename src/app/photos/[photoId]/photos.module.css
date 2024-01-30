@@ -1,0 +1,12 @@
+.photo {
+  width: 50%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .photo {
+    width: 80%;
+    height: 100%;
+    margin-left: 10%;
+  }
+}

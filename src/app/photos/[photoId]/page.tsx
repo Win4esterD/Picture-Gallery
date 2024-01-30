@@ -3,7 +3,12 @@ import Image from "next/image";
 import { MainHeader, Likes, ButtonLink, PhotoSizeButtons } from "@/components";
 import { notFound } from "next/navigation";
 import { Typography, Box, Button } from "@mui/material";
-import { headerHeight } from "@/components/MainHeader/header-config";
+import {
+  headerHeight,
+  headerSmallDesktopHeight,
+} from "@/components/MainHeader/header-config";
+import { queries } from "@/utils/queries/queries";
+import styles from "./photos.module.css";
 
 type PhotoParams = {
   params: {
@@ -32,6 +37,14 @@ export default async function Photo({
           marginTop: `calc(${headerHeight})`,
           display: "flex",
           height: `calc(100vh - ${headerHeight})`,
+          [queries.smallDesktop]: {
+            marginTop: `calc(${headerSmallDesktopHeight})`,
+            height: `calc(100vh - ${headerSmallDesktopHeight})`,
+          },
+          [queries.bigTablet]: {
+            flexDirection: "column",
+            height: "100%",
+          },
         }}
       >
         <Image
@@ -40,12 +53,16 @@ export default async function Photo({
           width={800}
           height={800}
           priority={true}
-          style={{ width: "50%", height: "100%" }}
+          className={styles.photo}
         />
         <Box
           sx={{
             height: `calc(100vh - ${headerHeight})`,
             width: "50%",
+            [queries.bigTablet]: {
+              width: "100%",
+              height: '100%',
+            },
           }}
         >
           <Box
@@ -55,7 +72,7 @@ export default async function Photo({
               display: "flex",
               flexDirection: "column",
               gap: "5vh",
-              "@media (max-width: 1100px)": {
+              [queries.smallDesktop]: {
                 gap: "3vh",
               },
             }}
@@ -64,8 +81,8 @@ export default async function Photo({
               sx={{
                 fontSize: "1.5rem",
                 paddingRight: "5%",
-                "@media (max-width: 1100px)": { fontSize: "1rem" },
-                "@media (max-width: 600px)": { fontSize: "0.9rem" },
+                [queries.smallDesktop]: { fontSize: "1rem" },
+                [queries.tablet]: { fontSize: "0.9rem" },
               }}
             >
               <b>Author:</b> {pictureData?.user.username}
@@ -74,8 +91,8 @@ export default async function Photo({
               sx={{
                 fontSize: "1.5rem",
                 paddingRight: "5%",
-                "@media (max-width: 1100px)": { fontSize: "1rem" },
-                "@media (max-width: 600px)": { fontSize: "0.8rem" },
+                [queries.smallDesktop]: { fontSize: "1rem" },
+                [queries.tablet]: { fontSize: "0.8rem" },
               }}
             >
               <b>Description: </b>
@@ -91,7 +108,7 @@ export default async function Photo({
               <Typography
                 variant="h4"
                 sx={{
-                  "@media (max-width: 1100px)": {
+                  [queries.smallDesktop]: {
                     fontSize: "1.5rem",
                   },
                 }}
@@ -115,7 +132,7 @@ export default async function Photo({
               <Typography
                 variant="h4"
                 sx={{
-                  "@media (max-width: 1100px)": {
+                  [queries.smallDesktop]: {
                     fontSize: "1.5rem",
                   },
                 }}

@@ -1,9 +1,10 @@
 "use client";
-import { AppBar, OutlinedInput, Button } from "@mui/material";
+import { AppBar, OutlinedInput, Button, useMediaQuery } from "@mui/material";
 import { getImagesByQuery } from "@/services/requests";
 import { KeyboardEvent, useState, Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/navigation";
-import { headerHeight } from "./header-config";
+import { headerHeight, headerSmallDesktopHeight } from "./header-config";
+import { queries } from "@/utils/queries/queries";
 
 type MainHeaderProps = {
   searchHandler?: Dispatch<SetStateAction<never[]>>;
@@ -18,6 +19,7 @@ export function MainHeader({
 }: MainHeaderProps): JSX.Element {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
+  const smallDesktop = useMediaQuery(queries.smallDesktop)
 
   async function peformAnimation() {
     router.push(`/?query=${searchQuery}&page=1`);
@@ -38,23 +40,35 @@ export function MainHeader({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        [queries.smallDesktop]: {
+          height: headerSmallDesktopHeight,
+        },
       }}
     >
-        <OutlinedInput
-          sx={{ backgroundColor: "#FFF", width: "22rem", height: "2.5rem" }}
-          color="secondary"
-          placeholder="Enter search query"
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyUp={async (e: KeyboardEvent) => {
-            if (e.code === "Enter") {
-              await peformAnimation();
-            }
-          }}
-        ></OutlinedInput>
+      <OutlinedInput
+        sx={{
+          backgroundColor: "#FFF",
+          width: "22rem",
+          height: "2.5rem",
+          marginLeft: "1rem",
+          [queries.smallDesktop]: {
+            height: "2rem",
+          },
+        }}
+        color="secondary"
+        placeholder="Enter search query"
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onKeyUp={async (e: KeyboardEvent) => {
+          if (e.code === "Enter") {
+            await peformAnimation();
+          }
+        }}
+      ></OutlinedInput>
       <Button
         variant="contained"
         color="secondary"
-        size="large"
+        size={!smallDesktop? 'large': 'small'}
+        sx={{ marginRight: "1rem" }}
         onClick={async () => {
           await peformAnimation();
         }}
