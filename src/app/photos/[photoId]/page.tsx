@@ -1,9 +1,9 @@
 import {getPhotoById} from '@/services/requests';
-import Image from 'next/image';
-import {MainHeader, Likes, ButtonLink, PhotoSizeButtons} from '@/components';
+import {ImageStyled} from '@/components';
+import {MainHeader, Likes, PhotoSizeButtons} from '@/components';
 import {notFound} from 'next/navigation';
 import {Typography, Box, Button} from '@mui/material';
-import styleModule from './photos.module.css';
+import Grid from '@mui/material/Unstable_Grid2';
 import {styles} from './singlePagePhotoStyles';
 
 type PhotoParams = {
@@ -20,7 +20,7 @@ export default async function Photo({
   params,
 }: PhotoParams): Promise<JSX.Element> {
   const pictureData = await getPhotoById(params.photoId);
-  if (pictureData.errors) {
+  if (pictureData?.errors) {
     notFound();
   }
 
@@ -28,13 +28,13 @@ export default async function Photo({
     <>
       <MainHeader />
       <Box component="main" sx={styles.main}>
-        <Image
+        <ImageStyled
           src={pictureData?.urls?.regular}
           alt="picture"
           width={800}
           height={800}
           priority={true}
-          className={styleModule.photo}
+          sx={styles.image}
         />
         <Box sx={styles.rightBlock}>
           <Box sx={styles.rightBlockWrapper}>
@@ -65,15 +65,19 @@ export default async function Photo({
               <Typography variant="h4" sx={styles.relatedTopicsHeader}>
                 Related topics
               </Typography>
-              <Box sx={styles.relatedTopicsButtons}>
+              <Grid sx={styles.relatedTopicsButtons}>
                 {pictureData?.tags.map((item: tags, index: number) => (
-                  <Button key={index} variant="outlined" size="small">
-                    <ButtonLink href={`/?query=${item.title}&page=1`}>
-                      {item.title}
-                    </ButtonLink>
+                  <Button
+                    key={index}
+                    variant="outlined"
+                    size="small"
+                    href={`/?query=${item.title}&page=1`}
+                    sx={{marginTop: '0.5rem'}}
+                  >
+                    {item.title}
                   </Button>
                 ))}
-              </Box>
+              </Grid>
             </Box>
           </Box>
         </Box>

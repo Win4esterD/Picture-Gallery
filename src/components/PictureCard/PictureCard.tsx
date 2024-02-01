@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import {Box, Button} from '@mui/material';
-import {ButtonLink} from '..';
 import {Likes} from '..';
 import {useRouter} from 'next/navigation';
 import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import {ImageStyled} from '..';
+import {queries} from '@/utils/queries/queries';
 
 type PictureCardProps = {
   url: string;
@@ -16,13 +16,29 @@ export function PictureCard({url, likedByUser, likes, id}: PictureCardProps) {
   const router: AppRouterInstance = useRouter();
   return (
     <Box sx={{marginTop: '2rem', maxWidth: '90%'}}>
-      <Image
+      <ImageStyled
         src={url}
         alt="picture"
-        width="450"
-        height="450"
+        width={450}
+        height={450}
         priority={true}
-        style={{maxWidth: '100%'}}
+        sx={{
+          maxWidth: '100%',
+          width: '24vw',
+          height: '24vw',
+          [queries.smallDesktop]: {
+            width: '30vw',
+            height: '30vw',
+          },
+          [queries.largeTablet]: {
+            width: '46vw',
+            height: '46vw',
+          },
+          [queries.mobile]: {
+            width: '90vw',
+            height: '90vw',
+          },
+        }}
       />
       <Box
         sx={{
@@ -31,8 +47,8 @@ export function PictureCard({url, likedByUser, likes, id}: PictureCardProps) {
         }}
       >
         <Likes likedByUser={likedByUser} likes={likes} />
-        <Button variant="outlined" onClick={() => router.push(`/photos/${id}`)}>
-          <ButtonLink href={`/photos/${id}`}>View picture</ButtonLink>
+        <Button variant="outlined" href={`/photos/${id}`} target="_blank">
+          Watch
         </Button>
       </Box>
     </Box>

@@ -15,7 +15,10 @@ export async function getImages(): Promise<never[]> {
   }
 }
 
-export async function getImagesByQuery(query: string, page: string = '1') {
+export async function getImagesByQuery(
+  query: string,
+  page: string = '1',
+): Promise<any> {
   try {
     const {data} = await axios.get(`${searchUrl}&query=${query}&page=${page}`, {
       headers: {
@@ -28,7 +31,7 @@ export async function getImagesByQuery(query: string, page: string = '1') {
   }
 }
 
-export async function getPhotoById(id: string) {
+export async function getPhotoById(id: string): Promise<any> {
   try {
     const response = await fetch(url + id, {
       headers: {
