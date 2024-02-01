@@ -7,6 +7,7 @@ import {queries} from '@/utils/queries/queries';
 type styles = {
   main: React.CSSProperties;
   rightBlock: React.CSSProperties;
+  image: React.CSSProperties;
   rightBlockWrapper: React.CSSProperties;
   author: React.CSSProperties;
   description: React.CSSProperties;
@@ -29,6 +30,15 @@ export const styles: styles = {
     [queries.bigTablet]: {
       flexDirection: 'column',
       height: '100%',
+    },
+  },
+  image: {
+    width: '50%',
+    height: '100%',
+    [queries.bigTablet]: {
+      width: '80%',
+      height: '100%',
+      marginLeft: '10%',
     },
   },
   rightBlock: {
@@ -87,6 +97,8 @@ export const styles: styles = {
     flexWrap: 'wrap',
     gap: '1%',
     marginTop: '1vh',
-    paddingBottom: '3vh'
+    [queries.bigTablet]: {
+      paddingBottom: '3vh',
+    },
   },
 };

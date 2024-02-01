@@ -1,10 +1,10 @@
 import {getPhotoById} from '@/services/requests';
-import Image from 'next/image';
+// import Image from 'next/image';
+import { ImageStyled } from '@/components';
 import {MainHeader, Likes, PhotoSizeButtons} from '@/components';
 import {notFound} from 'next/navigation';
 import {Typography, Box, Button} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import styleModule from './photos.module.css';
 import {styles} from './singlePagePhotoStyles';
 
 type PhotoParams = {
@@ -29,13 +29,13 @@ export default async function Photo({
     <>
       <MainHeader />
       <Box component="main" sx={styles.main}>
-        <Image
+        <ImageStyled
           src={pictureData?.urls?.regular}
           alt="picture"
           width={800}
           height={800}
           priority={true}
-          className={styleModule.photo}
+          sx={styles.image}
         />
         <Box sx={styles.rightBlock}>
           <Box sx={styles.rightBlockWrapper}>
