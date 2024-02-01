@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import {Box, Button} from '@mui/material';
-import {ButtonLink} from '..';
 import {Likes} from '..';
 import {useRouter} from 'next/navigation';
 import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
@@ -31,8 +30,8 @@ export function PictureCard({url, likedByUser, likes, id}: PictureCardProps) {
         }}
       >
         <Likes likedByUser={likedByUser} likes={likes} />
-        <Button variant="outlined" onClick={() => router.push(`/photos/${id}`)}>
-          <ButtonLink href={`/photos/${id}`}>View picture</ButtonLink>
+        <Button variant="outlined" href={`/photos/${id}`} target="_blank">
+          View picture
         </Button>
       </Box>
     </Box>

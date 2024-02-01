@@ -87,5 +87,6 @@ export const styles: styles = {
     flexWrap: 'wrap',
     gap: '1%',
     marginTop: '1vh',
+    paddingBottom: '3vh'
   },
 };

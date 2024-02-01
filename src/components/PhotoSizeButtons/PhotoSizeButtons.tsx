@@ -1,7 +1,7 @@
 'use client';
 import {Button, ButtonGroup, useMediaQuery} from '@mui/material';
-import {ButtonLink} from '..';
 import React from 'react';
+import { queries } from '@/utils/queries/queries';
 
 type PhotoSizeButtonsProps = {
   regular: string;
@@ -14,11 +14,11 @@ export function PhotoSizeButtons({
   small,
   thumb,
 }: PhotoSizeButtonsProps): JSX.Element {
-  const desktop: boolean = useMediaQuery('(min-width: 1100px)');
+  const desktop: boolean = useMediaQuery(queries.desktop);
   const smallDesktop: boolean = useMediaQuery(
-    '(max-width: 1100px) and (min-width: 801px)',
+    `${queries.smallDesktop} and (min-width: 801px)`,
   );
-  const mobile: boolean = useMediaQuery('(max-width: 600px)');
+  const tablet: boolean = useMediaQuery(queries.tablet);
 
   function determineSize(): 'small' | 'medium' | 'large' {
     if (desktop) {
@@ -33,17 +33,17 @@ export function PhotoSizeButtons({
     <ButtonGroup
       size={determineSize()}
       fullWidth={true}
-      orientation={!mobile ? 'horizontal' : 'vertical'}
+      orientation={!tablet ? 'horizontal' : 'vertical'}
       sx={{width: '90%'}}
     >
-      <Button>
-        <ButtonLink href={regular}>Large</ButtonLink>
+      <Button href={regular}>
+        Large
       </Button>
-      <Button>
-        <ButtonLink href={small}>Medium</ButtonLink>
+      <Button href={small}>
+        Medium
       </Button>
-      <Button>
-        <ButtonLink href={thumb}>Small</ButtonLink>
+      <Button href={thumb}>
+        Small
       </Button>
     </ButtonGroup>
   );

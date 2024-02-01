@@ -1,8 +1,9 @@
 import {getPhotoById} from '@/services/requests';
 import Image from 'next/image';
-import {MainHeader, Likes, ButtonLink, PhotoSizeButtons} from '@/components';
+import {MainHeader, Likes, PhotoSizeButtons} from '@/components';
 import {notFound} from 'next/navigation';
 import {Typography, Box, Button} from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 import styleModule from './photos.module.css';
 import {styles} from './singlePagePhotoStyles';
 
@@ -65,15 +66,19 @@ export default async function Photo({
               <Typography variant="h4" sx={styles.relatedTopicsHeader}>
                 Related topics
               </Typography>
-              <Box sx={styles.relatedTopicsButtons}>
+              <Grid sx={styles.relatedTopicsButtons}>
                 {pictureData?.tags.map((item: tags, index: number) => (
-                  <Button key={index} variant="outlined" size="small">
-                    <ButtonLink href={`/?query=${item.title}&page=1`}>
-                      {item.title}
-                    </ButtonLink>
+                  <Button
+                    key={index}
+                    variant="outlined"
+                    size="small"
+                    href={`/?query=${item.title}&page=1`}
+                    sx={{marginTop: '0.5rem'}}
+                  >
+                    {item.title}
                   </Button>
                 ))}
-              </Box>
+              </Grid>
             </Box>
           </Box>
         </Box>
