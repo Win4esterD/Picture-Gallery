@@ -1,8 +1,6 @@
-"use client";
-import Image from "next/image";
+'use client';
+import Image from 'next/image';
 import {styled} from '@mui/system';
-import { Theme } from "@mui/material";
-
 
 type StyledImage = {
   sx?: React.CSSProperties;
@@ -13,7 +11,22 @@ type StyledImage = {
   priority?: boolean;
 };
 
-export function ImageStyled({sx={}, src, width, height, alt, priority=false}: StyledImage) {
-  const Styles = styled(Image)({...sx})
-  return <Styles src={src} width={width} height={height} alt={alt} priority={priority}/>;
+export function ImageStyled({
+  sx = {},
+  src,
+  width,
+  height,
+  alt,
+  priority = false,
+}: StyledImage) {
+  const IMG = styled(Image)({...sx});
+  return (
+    <IMG
+      src={src}
+      width={width}
+      height={height}
+      alt={alt}
+      priority={priority}
+    />
+  );
 }

@@ -1,7 +1,7 @@
 'use client';
 import {Button, ButtonGroup, useMediaQuery} from '@mui/material';
 import React from 'react';
-import { queries } from '@/utils/queries/queries';
+import {queries} from '@/utils/queries/queries';
 
 type PhotoSizeButtonsProps = {
   regular: string;
@@ -36,15 +36,9 @@ export function PhotoSizeButtons({
       orientation={!tablet ? 'horizontal' : 'vertical'}
       sx={{width: '90%'}}
     >
-      <Button href={regular}>
-        Large
-      </Button>
-      <Button href={small}>
-        Medium
-      </Button>
-      <Button href={thumb}>
-        Small
-      </Button>
+      <Button href={regular}>Large</Button>
+      <Button href={small}>Medium</Button>
+      <Button href={thumb}>Small</Button>
     </ButtonGroup>
   );
 }

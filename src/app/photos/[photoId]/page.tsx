@@ -1,6 +1,5 @@
 import {getPhotoById} from '@/services/requests';
-// import Image from 'next/image';
-import { ImageStyled } from '@/components';
+import {ImageStyled} from '@/components';
 import {MainHeader, Likes, PhotoSizeButtons} from '@/components';
 import {notFound} from 'next/navigation';
 import {Typography, Box, Button} from '@mui/material';
@@ -21,7 +20,7 @@ export default async function Photo({
   params,
 }: PhotoParams): Promise<JSX.Element> {
   const pictureData = await getPhotoById(params.photoId);
-  if (pictureData.errors) {
+  if (pictureData?.errors) {
     notFound();
   }
 

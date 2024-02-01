@@ -2,8 +2,8 @@ import {Box, Button} from '@mui/material';
 import {Likes} from '..';
 import {useRouter} from 'next/navigation';
 import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { ImageStyled } from '..';
-import { queries } from '@/utils/queries/queries';
+import {ImageStyled} from '..';
+import {queries} from '@/utils/queries/queries';
 
 type PictureCardProps = {
   url: string;

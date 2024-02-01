@@ -1,7 +1,7 @@
 'use client';
 import {AppBar, OutlinedInput, Button, useMediaQuery} from '@mui/material';
 import {getImagesByQuery} from '@/services/requests';
-import {KeyboardEvent, useState, Dispatch, SetStateAction} from 'react';
+import {useState, Dispatch, SetStateAction} from 'react';
 import {useRouter} from 'next/navigation';
 import {queries} from '@/utils/queries/queries';
 import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
@@ -35,28 +35,29 @@ export function MainHeader({
 
   return (
     <AppBar sx={headerStyles.appBar}>
-      <OutlinedInput
-        sx={headerStyles.input}
-        color="secondary"
-        placeholder="Enter search query"
-        onChange={e => setSearchQuery(e.target.value)}
-        onKeyUp={async (e: KeyboardEvent) => {
-          if (e.code === 'Enter') {
-            await peformAnimation();
-          }
-        }}
-      ></OutlinedInput>
-      <Button
-        variant="contained"
-        color="secondary"
-        size={!smallDesktop ? 'large' : 'small'}
-        sx={headerStyles.searchButton}
-        onClick={async () => {
+      <form
+        onSubmit={async e => {
+          e.preventDefault();
           await peformAnimation();
         }}
+        style={{display: 'flex', maxWidth: '90%'}}
       >
-        SEARCH
-      </Button>
+        <OutlinedInput
+          sx={headerStyles.input}
+          color="secondary"
+          placeholder="Enter search query"
+          onChange={e => setSearchQuery(e.target.value)}
+        ></OutlinedInput>
+        <Button
+          variant="contained"
+          color="secondary"
+          size={!smallDesktop ? 'large' : 'small'}
+          sx={headerStyles.searchButton}
+          type="submit"
+        >
+          SEARCH
+        </Button>
+      </form>
     </AppBar>
   );
 }

@@ -27,5 +27,5 @@ export const headerStyles: headerStyles = {
       height: '2rem',
     },
   },
-  searchButton: {marginRight: '1rem'},
+  searchButton: {},
 };
