@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import './globals.css';
+import Head from 'next/head';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -13,6 +14,9 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="en">
+      <Head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </Head>
       <body>{children}</body>
     </html>
   );
