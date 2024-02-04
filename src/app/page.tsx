@@ -2,7 +2,7 @@
 import {getImages, getImagesByQuery} from '@/services/requests';
 import {Box, CircularProgress, Pagination} from '@mui/material/';
 import Grid from '@mui/material/Unstable_Grid2';
-import {PictureCard, MainHeader} from '@/components';
+import {PictureCard, MainHeader, DialogWindow} from '@/components';
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/navigation';
 import {ImageData} from '@/types/ImageData';
@@ -12,6 +12,7 @@ import {
 } from '@/components/MainHeader/header-config';
 import {queries} from '@/utils/queries/queries';
 import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
+
 
 export default function Home({
   searchParams,
@@ -59,6 +60,7 @@ export default function Home({
           },
         }}
       >
+        <DialogWindow/>
         <Grid
           container
           sx={{

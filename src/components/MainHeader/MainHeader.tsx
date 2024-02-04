@@ -1,12 +1,21 @@
 'use client';
-import {AppBar, OutlinedInput, Button, useMediaQuery, Avatar, Box} from '@mui/material';
+import {
+  AppBar,
+  OutlinedInput,
+  Button,
+  useMediaQuery,
+  Avatar,
+  Box,
+} from '@mui/material';
 import {getImagesByQuery} from '@/services/requests';
 import {useState, Dispatch, SetStateAction} from 'react';
 import {useRouter} from 'next/navigation';
 import {queries} from '@/utils/queries/queries';
 import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import {headerStyles} from './styles';
-import { ImageStyled } from '..';
+import {ImageStyled} from '..';
+import {GlobalContext} from '@/provider/GlobalContext/GlobalContext';
+import {useContext} from 'react';
 
 type MainHeaderProps = {
   searchHandler?: Dispatch<SetStateAction<never[]>>;
@@ -22,6 +31,7 @@ export function MainHeader({
   const [searchQuery, setSearchQuery] = useState<string>('');
   const router: AppRouterInstance = useRouter();
   const smallDesktop: boolean = useMediaQuery(queries.smallDesktop);
+  const {setIsDialogOpen, isAuth} = useContext(GlobalContext);
 
   async function peformAnimation(): Promise<void> {
     router.push(`/?query=${searchQuery}&page=1`);
@@ -41,6 +51,7 @@ export function MainHeader({
           src="/images/icons/logo.png"
           width={50}
           height={50}
+          priority={true}
           alt="logo"
           sx={headerStyles.logo}
           onClick={() => router.push('/')}
@@ -69,7 +80,13 @@ export function MainHeader({
             SEARCH
           </Button>
         </Box>
-        <Avatar sx={headerStyles.avatar} />
+        <Avatar
+          sx={headerStyles.avatar}
+          alt="Avatar"
+          onClick={() => {
+            !isAuth && setIsDialogOpen(true);
+          }}
+        />
       </Box>
     </AppBar>
   );

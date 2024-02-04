@@ -1,8 +1,11 @@
+"use client";
 import {Box, Typography} from '@mui/material';
 import SvgIcon from '@mui/material/SvgIcon';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {queries} from '@/utils/queries/queries';
+import { GlobalContext } from '@/provider/GlobalContext/GlobalContext';
+import { useContext } from 'react';
 
 type LikesProps = {
   likedByUser: boolean;
@@ -15,9 +18,12 @@ export function Likes({likedByUser, likes}: LikesProps): JSX.Element {
     smallDesktop: '2rem',
   };
 
+  const {isAuth, setIsDialogOpen} = useContext(GlobalContext);
+
   return (
     <Box sx={{display: 'flex'}}>
       <SvgIcon
+        onClick={() => !isAuth && setIsDialogOpen(true)}
         sx={{
           cursor: 'pointer',
           fontSize: sizes.desktop,
