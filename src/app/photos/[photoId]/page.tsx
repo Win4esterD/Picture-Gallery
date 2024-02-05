@@ -1,5 +1,5 @@
 import {getPhotoById} from '@/services/requests';
-import {ImageStyled} from '@/components';
+import {ImageStyled, DialogWindow} from '@/components';
 import {MainHeader, Likes, PhotoSizeButtons} from '@/components';
 import {notFound} from 'next/navigation';
 import {Typography, Box, Button} from '@mui/material';
@@ -27,6 +27,7 @@ export default async function Photo({
   return (
     <>
       <MainHeader />
+      <DialogWindow />
       <Box component="main" sx={styles.main}>
         <ImageStyled
           src={pictureData?.urls?.regular}

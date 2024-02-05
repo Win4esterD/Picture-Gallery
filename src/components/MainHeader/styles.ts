@@ -46,7 +46,13 @@ export const headerStyles: headerStyles = {
       fontSize: '0.7rem',
     },
   },
-  searchButton: {},
+  searchButton: {
+    position: 'relative',
+    bottom: '0.1rem',
+    [queries.smallDesktop]: {
+      bottom: '0.05rem',
+    },
+  },
   avatar: {
     cursor: 'pointer',
     [queries.smallDesktop]: {
