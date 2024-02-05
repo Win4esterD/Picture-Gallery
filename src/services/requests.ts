@@ -44,3 +44,4 @@ export async function getPhotoById(id: string): Promise<any> {
     console.log((err as Error).message);
   }
 }
+

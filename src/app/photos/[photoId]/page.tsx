@@ -51,6 +51,7 @@ export default async function Photo({
             <Likes
               likes={pictureData?.likes}
               likedByUser={pictureData?.liked_by_user}
+              id={params.photoId}
             />
             <Box sx={styles.downloadButtonsBlock}>
               <Typography variant="h4" sx={styles.download}>

@@ -13,7 +13,6 @@ import {
 import {queries} from '@/utils/queries/queries';
 import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-
 export default function Home({
   searchParams,
 }: {
@@ -60,7 +59,7 @@ export default function Home({
           },
         }}
       >
-        <DialogWindow/>
+        <DialogWindow />
         <Grid
           container
           sx={{

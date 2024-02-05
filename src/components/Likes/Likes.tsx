@@ -6,13 +6,17 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {queries} from '@/utils/queries/queries';
 import { GlobalContext } from '@/provider/GlobalContext/GlobalContext';
 import { useContext } from 'react';
+import { likePhoto } from '@/services/userActions';
+import { cookieParser } from '@/utils/functions/cookieParser';
+
 
 type LikesProps = {
   likedByUser: boolean;
   likes: number;
+  id: string;
 };
 
-export function Likes({likedByUser, likes}: LikesProps): JSX.Element {
+export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
   const sizes = {
     desktop: '3.5rem',
     smallDesktop: '2rem',
@@ -23,7 +27,11 @@ export function Likes({likedByUser, likes}: LikesProps): JSX.Element {
   return (
     <Box sx={{display: 'flex'}}>
       <SvgIcon
-        onClick={() => !isAuth && setIsDialogOpen(true)}
+        // onClick={() => !isAuth && setIsDialogOpen(true)}
+        onClick={() => {
+          const token = cookieParser('token');
+          likePhoto(id, token);
+        }}
         sx={{
           cursor: 'pointer',
           fontSize: sizes.desktop,

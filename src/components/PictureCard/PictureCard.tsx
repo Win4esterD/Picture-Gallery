@@ -46,7 +46,7 @@ export function PictureCard({url, likedByUser, likes, id}: PictureCardProps) {
           justifyContent: 'space-between',
         }}
       >
-        <Likes likedByUser={likedByUser} likes={likes} />
+        <Likes likedByUser={likedByUser} likes={likes} id={id} />
         <Button variant="outlined" href={`/photos/${id}`} target="_blank">
           Watch
         </Button>
