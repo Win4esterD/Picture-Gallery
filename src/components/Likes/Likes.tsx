@@ -27,10 +27,13 @@ export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
   return (
     <Box sx={{display: 'flex'}}>
       <SvgIcon
-        // onClick={() => !isAuth && setIsDialogOpen(true)}
         onClick={() => {
-          const token = cookieParser('token');
-          likePhoto(id, token);
+          if (!isAuth) {
+            setIsDialogOpen(true);
+          } else {
+            const token = cookieParser('token');
+            likePhoto(id, token);
+          }
         }}
         sx={{
           cursor: 'pointer',

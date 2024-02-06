@@ -3,6 +3,7 @@ import {authorizeUser} from '@/services/userActions';
 import {useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import {Box, Typography, Button} from '@mui/material';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 type AuthorizationParams = {
   searchParams: {
@@ -11,7 +12,7 @@ type AuthorizationParams = {
 };
 
 export default function Authorization({searchParams}: AuthorizationParams) {
-  const {push} = useRouter();
+  const router: AppRouterInstance = useRouter();
 
   useEffect(() => {
     async function getToken() {
@@ -19,11 +20,11 @@ export default function Authorization({searchParams}: AuthorizationParams) {
         searchParams.code,
         `${window.location.origin}/auth/`,
       );
-      document.cookie = `token=${response?.data?.access_token}`;
+      document.cookie = `token=${response?.data.access_token}`;
     }
 
     searchParams.code && getToken();
-    push('/');
+    router.push('/');
   }, [])
   return (
     <Box

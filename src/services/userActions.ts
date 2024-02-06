@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {url, accessKey, searchUrl, secretKey} from './apiVariables';
+import {url, accessKey, secretKey} from './apiVariables';
 
 export async function authorizeUser(code: string, host: string) {
   try {
@@ -10,7 +10,6 @@ export async function authorizeUser(code: string, host: string) {
       code: code,
       grant_type: 'authorization_code',
     });
-
     return response;
   } catch (error) {
     console.log(error);
@@ -19,15 +18,13 @@ export async function authorizeUser(code: string, host: string) {
 
 export async function likePhoto(id: string, token: string) {
   try {
-    const response = await axios.post(`${url}${id}/like`, {
+    await axios.post(`${url}${id}/like`, {
       headers: {
-        Authorization: 'Bearer ' + token,
+        Authorization: `Bearer ${token}`,
       },
     });
 
-    console.log(response)
   } catch (err) {
     console.log(err);
   }
 }
-

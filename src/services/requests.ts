@@ -1,12 +1,13 @@
 import axios from 'axios';
 import {url, accessKey, searchUrl} from './apiVariables';
 
-export async function getImages(): Promise<never[]> {
+export async function getImages(token?: string| undefined): Promise<never[]> {
+  const auth = !token? `Client-ID ${accessKey}`: `Bearer ${token}`
   try {
     const response = await fetch(url + '?per_page=28', {
       cache: 'no-cache',
       headers: {
-        Authorization: `Client-ID ${accessKey}`,
+        Authorization: auth,
       },
     });
     return response.json();
@@ -18,11 +19,13 @@ export async function getImages(): Promise<never[]> {
 export async function getImagesByQuery(
   query: string,
   page: string = '1',
+  token?: string| undefined,
 ): Promise<any> {
+  const auth = !token? `Client-ID ${accessKey}`: `Bearer ${token}`
   try {
     const {data} = await axios.get(`${searchUrl}&query=${query}&page=${page}`, {
       headers: {
-        Authorization: `Client-ID ${accessKey}`,
+        Authorization: auth,
       },
     });
     return data;
@@ -31,11 +34,12 @@ export async function getImagesByQuery(
   }
 }
 
-export async function getPhotoById(id: string): Promise<any> {
+export async function getPhotoById(id: string, token?: string | undefined): Promise<any> {
+  const auth = !token ? `Client-ID ${accessKey}` : `Bearer ${token}`;
   try {
     const response = await fetch(url + id, {
       headers: {
-        Authorization: `Client-ID ${accessKey}`,
+        Authorization: auth,
       },
       cache: 'no-cache',
     });
