@@ -5,9 +5,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {queries} from '@/utils/queries/queries';
 import { GlobalContext } from '@/provider/GlobalContext/GlobalContext';
-import { useContext } from 'react';
-import { likePhoto } from '@/services/userActions';
-import { cookieParser } from '@/utils/functions/cookieParser';
+import { useContext, useState } from 'react';
+import { likePhoto, unlikePhoto } from '@/services/userActions';
 
 
 type LikesProps = {
@@ -23,6 +22,7 @@ export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
   };
 
   const {isAuth, setIsDialogOpen} = useContext(GlobalContext);
+  const [liked, setLiked] = useState<boolean>(likedByUser);
 
   return (
     <Box sx={{display: 'flex'}}>
@@ -31,8 +31,8 @@ export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
           if (!isAuth) {
             setIsDialogOpen(true);
           } else {
-            const token = cookieParser('token');
-            likePhoto(id, token);
+            !liked ? likePhoto(id): unlikePhoto(id);
+            setLiked(!liked)
           }
         }}
         sx={{
@@ -43,11 +43,7 @@ export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
           },
         }}
       >
-        {!likedByUser ? (
-          <FavoriteBorderIcon />
-        ) : (
-          <FavoriteIcon sx={{color: 'red'}} />
-        )}
+        {!liked ? <FavoriteBorderIcon /> : <FavoriteIcon sx={{color: 'red'}} />}
       </SvgIcon>
       <Typography
         sx={{
@@ -59,7 +55,7 @@ export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
           },
         }}
       >
-        {likes}
+        {!liked? likes: Number(likes) + 1}
       </Typography>
     </Box>
   );

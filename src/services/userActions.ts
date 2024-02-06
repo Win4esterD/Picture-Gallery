@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {url, accessKey, secretKey} from './apiVariables';
+import { cookieParser } from '@/utils/functions/cookieParser';
 
 export async function authorizeUser(code: string, host: string) {
   try {
@@ -16,9 +17,29 @@ export async function authorizeUser(code: string, host: string) {
   }
 }
 
-export async function likePhoto(id: string, token: string) {
+
+export async function likePhoto(id: string) {
+
+  const token = cookieParser('token');
   try {
-    await axios.post(`${url}${id}/like`, {
+    await fetch(`${url}${id}/like`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function unlikePhoto(id: string) {
+
+  const token = cookieParser('token');
+  try {
+    await fetch(`${url}${id}/like`, {
+      method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
       },
