@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {url, accessKey, searchUrl} from './apiVariables';
+import {notFound} from 'next/navigation';
 
 export async function getImages(token?: string| undefined): Promise<never[]> {
   const auth = !token? `Client-ID ${accessKey}`: `Bearer ${token}`
@@ -46,6 +47,7 @@ export async function getPhotoById(id: string, token?: string | undefined): Prom
     return response.json();
   } catch (err) {
     console.log((err as Error).message);
+    notFound();
   }
 }
 

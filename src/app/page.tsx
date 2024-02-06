@@ -14,6 +14,7 @@ import {queries} from '@/utils/queries/queries';
 import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { cookieParser } from '@/utils/functions/cookieParser';
 
+
 export default function Home({
   searchParams,
 }: {
