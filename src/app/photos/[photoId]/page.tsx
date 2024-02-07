@@ -1,10 +1,13 @@
+'use client';
 import {getPhotoById} from '@/services/requests';
-import {ImageStyled} from '@/components';
+import {ImageStyled, DialogWindow} from '@/components';
 import {MainHeader, Likes, PhotoSizeButtons} from '@/components';
 import {notFound} from 'next/navigation';
-import {Typography, Box, Button} from '@mui/material';
+import {Typography, Box, Button, CircularProgress} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import {styles} from './singlePagePhotoStyles';
+import {useEffect, useState} from 'react';
+import {cookieParser} from '@/utils/functions/cookieParser';
 
 type PhotoParams = {
   params: {
@@ -16,67 +19,106 @@ type tags = {
   title: string;
 };
 
-export default async function Photo({
-  params,
-}: PhotoParams): Promise<JSX.Element> {
-  const pictureData = await getPhotoById(params.photoId);
-  if (pictureData?.errors) {
-    notFound();
-  }
+export default function Photo({params}: PhotoParams): JSX.Element {
+  const [pictureData, setPictureData] = useState<any>();
+  useEffect(() => {
+    const getPageView = async () => {
+      const response = await getPhotoById(
+        params.photoId,
+        cookieParser('token'),
+      );
+      setPictureData(response);
+    };
+    getPageView();
+  }, [params.photoId]);
+
+  pictureData?.errors && notFound();
 
   return (
     <>
       <MainHeader />
+      <DialogWindow />
       <Box component="main" sx={styles.main}>
-        <ImageStyled
-          src={pictureData?.urls?.regular}
-          alt="picture"
-          width={800}
-          height={800}
-          priority={true}
-          sx={styles.image}
-        />
+        {pictureData?.urls?.regular ? (
+          <ImageStyled
+            src={pictureData.urls.regular}
+            alt="picture"
+            width={800}
+            height={800}
+            priority={true}
+            sx={styles.image}
+          />
+        ) : (
+          <Box
+            sx={Object.assign(styles.image, {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            })}
+          >
+            <CircularProgress size={100} />
+          </Box>
+        )}
         <Box sx={styles.rightBlock}>
           <Box sx={styles.rightBlockWrapper}>
             <Typography sx={styles.author}>
-              <b>Author:</b> {pictureData?.user.username}
+              <b>Author:</b>
+              {pictureData?.user?.username ? (
+                pictureData?.user?.username
+              ) : (
+                <CircularProgress size={20} />
+              )}
             </Typography>
             <Typography sx={styles.description}>
               <b>Description: </b>
               {pictureData?.description
                 ? pictureData.description
-                : pictureData.alt_description}
+                : pictureData?.alt_description}
             </Typography>
-            <Likes
-              likes={pictureData?.likes}
-              likedByUser={pictureData?.liked_by_user}
-            />
+            {pictureData?.likes ? (
+              <Likes
+                likes={pictureData?.likes}
+                likedByUser={pictureData?.['liked_by_user']}
+                id={params.photoId}
+              />
+            ) : (
+              <CircularProgress />
+            )}
+
             <Box sx={styles.downloadButtonsBlock}>
               <Typography variant="h4" sx={styles.download}>
                 Download
               </Typography>
-              <PhotoSizeButtons
-                regular={pictureData?.urls.regular}
-                small={pictureData?.urls.small}
-                thumb={pictureData?.urls.thumb}
-              />
+              {pictureData ? (
+                <PhotoSizeButtons
+                  regular={pictureData?.urls?.regular}
+                  small={pictureData?.urls?.small}
+                  thumb={pictureData?.urls?.thumb}
+                />
+              ) : (
+                <CircularProgress />
+              )}
             </Box>
             <Box sx={styles.relatedTopicsBlock}>
               <Typography variant="h4" sx={styles.relatedTopicsHeader}>
                 Related topics
               </Typography>
               <Grid sx={styles.relatedTopicsButtons}>
-                {pictureData?.tags.map((item: tags, index: number) => (
-                  <Button
-                    key={index}
-                    variant="outlined"
-                    size="small"
-                    href={`/?query=${item.title}&page=1`}
-                    sx={{marginTop: '0.5rem'}}
-                  >
-                    {item.title}
-                  </Button>
-                ))}
+                {!pictureData ? (
+                  <CircularProgress />
+                ) : (
+                  pictureData?.tags?.map((item: tags, index: number) => (
+                    <Button
+                      key={index}
+                      variant="outlined"
+                      size="small"
+                      href={`/?query=${item.title}&page=1`}
+                      sx={{marginTop: '0.5rem'}}
+                    >
+                      {item.title}
+                    </Button>
+                  ))
+                )}
               </Grid>
             </Box>
           </Box>

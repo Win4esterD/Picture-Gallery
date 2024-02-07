@@ -1,7 +1,5 @@
 import {Box, Button} from '@mui/material';
 import {Likes} from '..';
-import {useRouter} from 'next/navigation';
-import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import {ImageStyled} from '..';
 import {queries} from '@/utils/queries/queries';
 
@@ -13,7 +11,6 @@ type PictureCardProps = {
 };
 
 export function PictureCard({url, likedByUser, likes, id}: PictureCardProps) {
-  const router: AppRouterInstance = useRouter();
   return (
     <Box sx={{marginTop: '2rem', maxWidth: '90%'}}>
       <ImageStyled
@@ -46,7 +43,7 @@ export function PictureCard({url, likedByUser, likes, id}: PictureCardProps) {
           justifyContent: 'space-between',
         }}
       >
-        <Likes likedByUser={likedByUser} likes={likes} />
+        <Likes likedByUser={likedByUser} likes={likes} id={id} />
         <Button variant="outlined" href={`/photos/${id}`} target="_blank">
           Watch
         </Button>

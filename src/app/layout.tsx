@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import './globals.css';
+import {GlobalContextProvider} from '@/components/';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -13,7 +14,12 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
+      <body>
+        <GlobalContextProvider>{children}</GlobalContextProvider>
+      </body>
     </html>
   );
 }
