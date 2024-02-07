@@ -1,13 +1,12 @@
-"use client";
+'use client';
 import {Box, Typography} from '@mui/material';
 import SvgIcon from '@mui/material/SvgIcon';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {queries} from '@/utils/queries/queries';
-import { GlobalContext } from '@/provider/GlobalContext/GlobalContext';
-import { useContext, useState } from 'react';
-import { likePhoto, unlikePhoto } from '@/services/userActions';
-
+import {GlobalContext} from '@/provider/GlobalContext/GlobalContext';
+import {useContext, useState, useEffect} from 'react';
+import {likePhoto, unlikePhoto} from '@/services/userActions';
 
 type LikesProps = {
   likedByUser: boolean;
@@ -23,18 +22,30 @@ export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
 
   const {isAuth, setIsDialogOpen} = useContext(GlobalContext);
   const [liked, setLiked] = useState<boolean>(likedByUser);
+  const [likesNumber, setLikesNumber] = useState<number>(likes);
+
+  const likeHandler = async () => {
+    if (!isAuth) {
+      setIsDialogOpen(true);
+      return;
+    }
+
+    if(!liked) {
+      await likePhoto(id);
+      setLiked(!liked);
+      setLikesNumber(likesNumber + 1);
+    } else {
+      await unlikePhoto(id);
+      setLiked(!liked);
+      setLikesNumber(likesNumber - 1);
+    }
+    
+  };
 
   return (
     <Box sx={{display: 'flex'}}>
       <SvgIcon
-        onClick={() => {
-          if (!isAuth) {
-            setIsDialogOpen(true);
-          } else {
-            !liked ? likePhoto(id): unlikePhoto(id);
-            setLiked(!liked)
-          }
-        }}
+        onClick={likeHandler}
         sx={{
           cursor: 'pointer',
           fontSize: sizes.desktop,
@@ -55,7 +66,7 @@ export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
           },
         }}
       >
-        {!liked? likes: Number(likes) + 1}
+        {likesNumber}
       </Typography>
     </Box>
   );

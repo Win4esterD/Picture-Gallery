@@ -34,9 +34,8 @@ export async function getImagesByQuery(
   }
 }
 
-export async function getPhotoById(id: string, token?: string | undefined): Promise<any> {
+export async function getPhotoById(id: string, token?: string| undefined): Promise<any> {
   const auth = !token ? `Client-ID ${accessKey}` : `Bearer ${token}`;
-
   try {
     const response = await fetch(url + id, {
       headers: {
