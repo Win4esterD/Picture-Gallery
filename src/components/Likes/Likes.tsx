@@ -30,7 +30,7 @@ export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
       return;
     }
 
-    if(!liked) {
+    if (!liked) {
       await likePhoto(id);
       setLiked(!liked);
       setLikesNumber(likesNumber + 1);
@@ -39,7 +39,6 @@ export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
       setLiked(!liked);
       setLikesNumber(likesNumber - 1);
     }
-    
   };
 
   return (

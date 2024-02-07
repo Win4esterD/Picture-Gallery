@@ -25,10 +25,9 @@ export default function Photo({params}: PhotoParams): JSX.Element {
     const getPageView = async () => {
       const response = await getPhotoById(
         params.photoId,
-        cookieParser('token')
+        cookieParser('token'),
       );
       setPictureData(response);
-      console.log(response);
     };
     getPageView();
   }, [params.photoId]);
@@ -63,7 +62,12 @@ export default function Photo({params}: PhotoParams): JSX.Element {
         <Box sx={styles.rightBlock}>
           <Box sx={styles.rightBlockWrapper}>
             <Typography sx={styles.author}>
-              <b>Author:</b> {pictureData?.user?.username}
+              <b>Author:</b>
+              {pictureData?.user?.username ? (
+                pictureData?.user?.username
+              ) : (
+                <CircularProgress size={20} />
+              )}
             </Typography>
             <Typography sx={styles.description}>
               <b>Description: </b>

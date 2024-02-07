@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {url, accessKey, searchUrl} from './apiVariables';
 
-export async function getImages(token?: string| undefined): Promise<never[]> {
-  const auth = !token? `Client-ID ${accessKey}`: `Bearer ${token}`
+export async function getImages(token?: string | undefined): Promise<never[]> {
+  const auth = !token ? `Client-ID ${accessKey}` : `Bearer ${token}`;
   try {
     const response = await fetch(url + '?per_page=28', {
       cache: 'no-cache',
@@ -19,9 +19,9 @@ export async function getImages(token?: string| undefined): Promise<never[]> {
 export async function getImagesByQuery(
   query: string,
   page: string = '1',
-  token?: string| undefined,
+  token?: string | undefined,
 ): Promise<any> {
-  const auth = !token? `Client-ID ${accessKey}`: `Bearer ${token}`
+  const auth = !token ? `Client-ID ${accessKey}` : `Bearer ${token}`;
   try {
     const {data} = await axios.get(`${searchUrl}&query=${query}&page=${page}`, {
       headers: {
@@ -34,7 +34,10 @@ export async function getImagesByQuery(
   }
 }
 
-export async function getPhotoById(id: string, token?: string| undefined): Promise<any> {
+export async function getPhotoById(
+  id: string,
+  token?: string | undefined,
+): Promise<any> {
   const auth = !token ? `Client-ID ${accessKey}` : `Bearer ${token}`;
   try {
     const response = await fetch(url + id, {
@@ -48,4 +51,3 @@ export async function getPhotoById(id: string, token?: string| undefined): Promi
     console.log((err as Error).message);
   }
 }
-

@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import {styled} from '@mui/system';
-import { EventHandler, SyntheticEvent } from 'react';
+import {EventHandler, SyntheticEvent} from 'react';
 
 type StyledImage = {
   sx?: React.CSSProperties;
@@ -20,7 +20,7 @@ export function ImageStyled({
   height,
   alt,
   priority = false,
-  onClick
+  onClick,
 }: StyledImage) {
   const IMG = styled(Image)({...sx});
   return (

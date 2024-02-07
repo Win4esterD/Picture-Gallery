@@ -3,7 +3,7 @@ import {authorizeUser} from '@/services/userActions';
 import {useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import {Box, Typography, Button} from '@mui/material';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 type AuthorizationParams = {
   searchParams: {
@@ -25,7 +25,7 @@ export default function Authorization({searchParams}: AuthorizationParams) {
 
     searchParams.code && getToken();
     router.push('/');
-  }, [])
+  }, []);
   return (
     <Box
       sx={{
