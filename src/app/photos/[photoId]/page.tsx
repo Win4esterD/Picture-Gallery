@@ -23,9 +23,7 @@ export default function Photo({params}: PhotoParams): JSX.Element {
   const [pictureData, setPictureData] = useState<any>();
   useEffect(() => {
     const getPageView = async () => {
-      const response = await getPhotoById(
-        params.photoId,
-      );
+      const response = await getPhotoById(params.photoId);
       setPictureData(response);
     };
     getPageView();
