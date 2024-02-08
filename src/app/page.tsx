@@ -28,12 +28,11 @@ export default function Home({
     async function getFirstImages(): Promise<void> {
       setIsPending(true);
       if (!searchParams.query) {
-        setSearchResult(await getImages(cookieParser('token')));
+        setSearchResult(await getImages());
       } else {
         const response = await getImagesByQuery(
           searchParams.query,
           searchParams.page,
-          cookieParser('token'),
         );
         setSearchResult(response.results);
         setPages(response.total_pages);
