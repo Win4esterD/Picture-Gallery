@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
   const code = request.nextUrl.search.slice(6);
   const token = await authorizeUser(code, url);
   const response = NextResponse.next();
-  response.cookies.set('token', token.access_token);
+  response.cookies.set('token', token?.access_token);
   return response;
 }
 

@@ -21,7 +21,8 @@ export async function getImagesByQuery(
   page: string = '1',
   token?: string | undefined,
 ): Promise<any> {
-  const auth = !token ? `Client-ID ${accessKey}` : `Bearer ${token}`;
+  const auth = token ? `Bearer ${token}`: `Client-ID ${accessKey}`;
+  console.log(auth)
   try {
     const {data} = await axios.get(`${searchUrl}&query=${query}&page=${page}`, {
       headers: {
