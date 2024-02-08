@@ -7,7 +7,6 @@ import {Typography, Box, Button, CircularProgress} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import {styles} from './singlePagePhotoStyles';
 import {useEffect, useState} from 'react';
-import {cookieParser} from '@/utils/functions/cookieParser';
 
 type PhotoParams = {
   params: {
@@ -23,10 +22,7 @@ export default function Photo({params}: PhotoParams): JSX.Element {
   const [pictureData, setPictureData] = useState<any>();
   useEffect(() => {
     const getPageView = async () => {
-      const response = await getPhotoById(
-        params.photoId,
-        cookieParser('token'),
-      );
+      const response = await getPhotoById(params.photoId);
       setPictureData(response);
     };
     getPageView();

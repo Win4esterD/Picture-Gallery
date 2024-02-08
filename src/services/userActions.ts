@@ -2,23 +2,30 @@ import axios from 'axios';
 import {url, accessKey, secretKey} from './apiVariables';
 import {cookieParser} from '@/utils/functions/cookieParser';
 
-export async function authorizeUser(code: string, host: string) {
+export async function authorizeUser(code: string, host: string): Promise<any> {
+  const params = {
+    client_id: accessKey,
+    client_secret: secretKey,
+    redirect_uri: host,
+    code: code,
+    grant_type: 'authorization_code',
+  };
   try {
-    const response = axios.post('https://unsplash.com/oauth/token/', {
-      client_id: accessKey,
-      client_secret: secretKey,
-      redirect_uri: host,
-      code: code,
-      grant_type: 'authorization_code',
+    const response = await fetch('https://unsplash.com/oauth/token/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(params),
     });
-    return response;
+    return await response.json();
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function likePhoto(id: string) {
-  const token = cookieParser('token');
+export async function likePhoto(id: string): Promise<any> {
+  const token: string = cookieParser('token');
   try {
     await fetch(`${url}${id}/like`, {
       method: 'POST',
@@ -31,8 +38,8 @@ export async function likePhoto(id: string) {
   }
 }
 
-export async function unlikePhoto(id: string) {
-  const token = cookieParser('token');
+export async function unlikePhoto(id: string): Promise<any> {
+  const token: string = cookieParser('token');
   try {
     await fetch(`${url}${id}/like`, {
       method: 'DELETE',
