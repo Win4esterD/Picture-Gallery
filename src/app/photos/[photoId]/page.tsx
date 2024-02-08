@@ -7,7 +7,6 @@ import {Typography, Box, Button, CircularProgress} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import {styles} from './singlePagePhotoStyles';
 import {useEffect, useState} from 'react';
-import {cookieParser} from '@/utils/functions/cookieParser';
 
 type PhotoParams = {
   params: {

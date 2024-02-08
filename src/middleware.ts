@@ -1,7 +1,9 @@
 import {NextResponse, NextRequest} from 'next/server';
 import {authorizeUser} from './services/userActions';
 
-export async function middleware(request: NextRequest) {
+export async function middleware(
+  request: NextRequest,
+): Promise<NextResponse<unknown>> {
   const url = request.nextUrl.origin + '/auth/';
   const code = request.nextUrl.search.slice(6);
   const token = await authorizeUser(code, url);
