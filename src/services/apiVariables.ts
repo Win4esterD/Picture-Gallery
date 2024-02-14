@@ -3,3 +3,4 @@ export const secretKey: string = 'eXsIjcnHtBlAfc39PbCo-VCo7ENt7B8EZpM8B8awyZI';
 export const url: string = `https://api.unsplash.com/photos/`;
 export const searchUrl: string =
   'https://api.unsplash.com/search/photos?page=1&per_page=30';
+export const utm = 'utm_source=Image Gallery By Winchester&utm_medium=referral';

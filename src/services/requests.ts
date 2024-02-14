@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {url, accessKey, searchUrl} from './apiVariables';
 import {cookieParser} from '@/utils/functions/cookieParser';
 
@@ -25,12 +24,12 @@ export async function getImagesByQuery(
   const token = cookieParser('token');
   const auth = token ? `Bearer ${token}` : `Client-ID ${accessKey}`;
   try {
-    const {data} = await axios.get(`${searchUrl}&query=${query}&page=${page}`, {
+    const data = await fetch(`${searchUrl}&query=${query}&page=${page}`, {
       headers: {
         Authorization: auth,
       },
     });
-    return data;
+    return data.json();
   } catch (err) {
     throw err;
   }

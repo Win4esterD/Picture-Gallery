@@ -6,3 +6,4 @@ export {ImageStyled} from './ImageStyled/ImageStyled';
 export {GlobalContextProvider} from './GlobalContextProvider/GlobalContextProvider';
 export {DialogWindow} from './DialogWindow/DialogWindow';
 export {AuthorizationPageLayout} from './AuthorizationPageLayout/AuthorizationPageLayout';
+export {LinkStyled} from './LinkStyled/LinkStyled';

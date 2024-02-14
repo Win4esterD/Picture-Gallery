@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {url, accessKey, secretKey} from './apiVariables';
 import {cookieParser} from '@/utils/functions/cookieParser';
 
@@ -51,3 +50,25 @@ export async function unlikePhoto(id: string): Promise<any> {
     console.log(err);
   }
 }
+
+export async function downloadImage(downloadLocation: string): Promise<undefined> {
+ const token = cookieParser('token');
+ const auth = !token ? `Client-ID ${accessKey}` : `Bearer ${token}`;
+  try {
+      const response = await fetch(downloadLocation, {
+        headers: {
+          Authorization: auth,
+          'Content-Type': 'image/jpeg',
+        },
+      });
+
+      const result = await response.json();
+      const a = document.createElement('a');
+      a.setAttribute('href', result.url);;
+      a.setAttribute('target', '_blank');
+      a.click();
+      a.remove();
+    } catch(err) {
+      console.log(err);
+    }
+  }

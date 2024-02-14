@@ -74,6 +74,10 @@ export default function Home({
                 likedByUser={item.liked_by_user}
                 likes={item.likes}
                 id={item.id}
+                downloadLocation={item.links.download_location}
+                userName={item.user.name}
+                profileImage={item.user.profile_image.small}
+                profileLink={item.user.links.html}
               />
             ))
           ) : (

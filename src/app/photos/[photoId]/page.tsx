@@ -1,12 +1,13 @@
 'use client';
 import {getPhotoById} from '@/services/requests';
 import {ImageStyled, DialogWindow} from '@/components';
-import {MainHeader, Likes, PhotoSizeButtons} from '@/components';
+import {MainHeader, Likes, PhotoSizeButtons, LinkStyled} from '@/components';
 import {notFound} from 'next/navigation';
 import {Typography, Box, Button, CircularProgress} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import {styles} from './singlePagePhotoStyles';
 import {useEffect, useState} from 'react';
+import { utm } from '@/services/apiVariables';
 
 type PhotoParams = {
   params: {
@@ -58,12 +59,18 @@ export default function Photo({params}: PhotoParams): JSX.Element {
         <Box sx={styles.rightBlock}>
           <Box sx={styles.rightBlockWrapper}>
             <Typography sx={styles.author}>
-              <b>Author:</b>
-              {pictureData?.user?.username ? (
-                pictureData?.user?.username
+              <b>Author: </b>
+              {pictureData?.user?.name ? (
+                <LinkStyled href={`${pictureData?.user?.links?.html}/?${utm}`}>
+                  {pictureData?.user?.name}
+                </LinkStyled>
               ) : (
                 <CircularProgress size={20} />
               )}
+              &nbsp;on&nbsp;
+              <LinkStyled href={`https://unsplash.com/?${utm}`}>
+                Unsplash
+              </LinkStyled>
             </Typography>
             <Typography sx={styles.description}>
               <b>Description: </b>
@@ -83,7 +90,7 @@ export default function Photo({params}: PhotoParams): JSX.Element {
 
             <Box sx={styles.downloadButtonsBlock}>
               <Typography variant="h4" sx={styles.download}>
-                Download
+                Sizes
               </Typography>
               {pictureData ? (
                 <PhotoSizeButtons
