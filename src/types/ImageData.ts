@@ -10,4 +10,16 @@ export type ImageData = {
   urls: {
     small: string;
   };
+  links: {
+    download_location: string;
+  };
+  user: {
+    name: string;
+    profile_image: {
+      small: string;
+    };
+    links: {
+      html: string;
+    };
+  };
 };

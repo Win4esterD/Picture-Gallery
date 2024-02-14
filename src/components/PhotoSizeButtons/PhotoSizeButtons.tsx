@@ -36,9 +36,15 @@ export function PhotoSizeButtons({
       orientation={!tablet ? 'horizontal' : 'vertical'}
       sx={{width: '90%'}}
     >
-      <Button href={regular}>Large</Button>
-      <Button href={small}>Medium</Button>
-      <Button href={thumb}>Small</Button>
+      <Button href={regular} target="_blank">
+        Large
+      </Button>
+      <Button href={small} target="_blank">
+        Medium
+      </Button>
+      <Button href={thumb} target="_blank">
+        Small
+      </Button>
     </ButtonGroup>
   );
 }
