@@ -49,8 +49,8 @@ export function Likes({likedByUser, likes, id}: LikesProps): JSX.Element {
           cursor: 'pointer',
           fontSize: sizes.desktop,
           transition: 'color 0.3s',
-          "&:hover": {
-            color: "orange"
+          '&:hover': {
+            color: 'orange',
           },
           [queries.smallDesktop]: {
             fontSize: sizes.smallDesktop,

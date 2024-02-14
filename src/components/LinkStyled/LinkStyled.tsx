@@ -1,5 +1,5 @@
-"use client";
-import Link from "next/link";
+'use client';
+import Link from 'next/link';
 import {styled} from '@mui/system';
 
 type LinkStyledProps = {
@@ -9,7 +9,12 @@ type LinkStyledProps = {
   children: React.ReactNode;
 };
 
-export function LinkStyled({href, sx={}, target='_self ', children}: LinkStyledProps): JSX.Element {
+export function LinkStyled({
+  href,
+  sx = {},
+  target = '_self ',
+  children,
+}: LinkStyledProps): JSX.Element {
   const NewLink = styled(Link)({...sx});
   return (
     <NewLink href={href} target={target}>

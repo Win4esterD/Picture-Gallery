@@ -20,6 +20,6 @@ export type ImageData = {
     };
     links: {
       html: string;
-    }
+    };
   };
 };
