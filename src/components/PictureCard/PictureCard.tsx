@@ -5,7 +5,7 @@ import {ImageStyled, LinkStyled} from '..';
 import {queries} from '@/utils/queries/queries';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {downloadImage} from '@/services/userActions';
-import { utm } from '@/services/apiVariables';
+import {utm, unsplashLink} from '@/services/apiVariables';
 
 type PictureCardProps = {
   url: string;
@@ -69,7 +69,7 @@ export function PictureCard({
           position: 'absolute',
           zIndex: 1,
           top: 0,
-          opacity: '0',
+          opacity: 0,
           transition: 'opacity 0.5s',
           '&:hover': {
             opacity: 0.8,
@@ -89,6 +89,27 @@ export function PictureCard({
           },
         }}
       >
+        <Typography
+          component="a"
+          href={unsplashLink}
+          target="_blank"
+          sx={{
+            color: '#FFF',
+            display: 'block',
+            position: 'relative',
+            textDecoration: 'none',
+            textAlign: 'center',
+            top: '1rem',
+            fontWeight: 600,
+            transition: 'color 0.3s',
+            '&:hover': {
+              color: 'orange',
+              textDecoration: 'underline',
+            },
+          }}
+        >
+          Unsplash
+        </Typography>
         <Box
           sx={{
             display: 'flex',

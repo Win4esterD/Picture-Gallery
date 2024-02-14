@@ -7,7 +7,7 @@ import {Typography, Box, Button, CircularProgress} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import {styles} from './singlePagePhotoStyles';
 import {useEffect, useState} from 'react';
-import { utm } from '@/services/apiVariables';
+import {utm, unsplashLink} from '@/services/apiVariables';
 
 type PhotoParams = {
   params: {
@@ -68,9 +68,7 @@ export default function Photo({params}: PhotoParams): JSX.Element {
                 <CircularProgress size={20} />
               )}
               &nbsp;on&nbsp;
-              <LinkStyled href={`https://unsplash.com/?${utm}`}>
-                Unsplash
-              </LinkStyled>
+              <LinkStyled href={unsplashLink}>Unsplash</LinkStyled>
             </Typography>
             <Typography sx={styles.description}>
               <b>Description: </b>
