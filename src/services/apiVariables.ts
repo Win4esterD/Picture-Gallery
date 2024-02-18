@@ -1,5 +1,6 @@
-export const accessKey: string = 'WMg7fvhOErWviN3zSKl3oPs3aa1brAzRoD4SAyAErr0';
-export const secretKey: string = 'pIk46yLG_bh_38IqAaHIALmpZ_TCKiIXAsyx5neZOuU';
+export const accessKey: string = 'qQKszBTMuX65Vz_keSoS8Vi6z8XUlmMEXMRVnJl5maM';
+export const secretKey: string = 'eXsIjcnHtBlAfc39PbCo-VCo7ENt7B8EZpM8B8awyZI';
+export const baseURL = 'https://api.unsplash.com/';
 export const url: string = `https://api.unsplash.com/photos/`;
 export const searchUrl: string =
   'https://api.unsplash.com/search/photos?page=1&per_page=30';

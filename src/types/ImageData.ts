@@ -9,6 +9,7 @@ export type ImageData = {
   likes: number;
   urls: {
     small: string;
+    regular: string;
   };
   links: {
     download_location: string;

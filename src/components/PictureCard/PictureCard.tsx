@@ -4,7 +4,6 @@ import {Likes} from '..';
 import {ImageStyled, LinkStyled} from '..';
 import {queries} from '@/utils/queries/queries';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import {downloadImage} from '@/services/userActions';
 import {utm, unsplashLink} from '@/services/apiVariables';
 
 type PictureCardProps = {
@@ -12,8 +11,8 @@ type PictureCardProps = {
   likedByUser: boolean;
   likes: number;
   id: string;
-  downloadLocation: string;
   userName: string;
+  downloadLink: string;
   profileImage: string;
   profileLink: string;
 };
@@ -23,8 +22,8 @@ export function PictureCard({
   likedByUser,
   likes,
   id,
-  downloadLocation,
   userName,
+  downloadLink,
   profileImage,
   profileLink,
 }: PictureCardProps) {
@@ -147,20 +146,21 @@ export function PictureCard({
               {userName}
             </Typography>
           </Box>
-          <SvgIcon
-            sx={{
-              fontSize: '2rem',
-              color: '#FFF',
-              cursor: 'pointer',
-              marginTop: '1.2rem',
-              '&:hover': {
-                color: 'orange',
-              },
-            }}
-            onClick={async () => await downloadImage(downloadLocation)}
-          >
-            <FileDownloadIcon />
-          </SvgIcon>
+          <LinkStyled href={downloadLink} target="_blank">
+            <SvgIcon
+              sx={{
+                fontSize: '2rem',
+                color: '#FFF',
+                cursor: 'pointer',
+                marginTop: '1.2rem',
+                '&:hover': {
+                  color: 'orange',
+                },
+              }}
+            >
+              <FileDownloadIcon />
+            </SvgIcon>
+          </LinkStyled>
         </Box>
       </Box>
       <Box

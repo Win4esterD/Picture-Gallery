@@ -7,7 +7,7 @@ type headerStyles = {
   input: React.CSSProperties;
   searchButton: React.CSSProperties;
   content: React.CSSProperties;
-  avatar: React.CSSProperties;
+  signIn: React.CSSProperties;
 };
 
 export const headerStyles: headerStyles = {
@@ -53,11 +53,15 @@ export const headerStyles: headerStyles = {
       bottom: '0.05rem',
     },
   },
-  avatar: {
+  signIn: {
     cursor: 'pointer',
-    [queries.smallDesktop]: {
-      width: '1.8rem',
-      height: '1.8rem',
+    fontWeight: 600,
+    color: '#FFF',
+    textDecoration: 'none',
+    transition: 'color .5s',
+    // @ts-ignore
+    '&:hover': {
+      color: 'orange',
     },
   },
 };
