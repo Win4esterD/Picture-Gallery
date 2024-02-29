@@ -80,13 +80,6 @@ export function MainHeader({
             SEARCH
           </Button>
         </Box>
-        {/* <Avatar
-          sx={headerStyles.avatar}
-          alt="Avatar"
-          onClick={() => {
-            !isAuth && setIsDialogOpen(true);
-          }}
-        /> */}
         <Typography
           component={!isAuth ? 'span' : 'a'}
           href="/profile/"
