@@ -11,8 +11,10 @@ export async function getImages(): Promise<never[]> {
         Authorization: auth,
       },
     });
+    !response.ok && (document.cookie = "token=''; max-age=-1");
     return response.json();
   } catch (error) {
+    document.cookie = "token=''"
     throw error;
   }
 }
@@ -29,9 +31,12 @@ export async function getImagesByQuery(
         Authorization: auth,
       },
     });
+
+    !data.ok && (document.cookie = "token=''; max-age=-1");
     return data.json();
   } catch (err) {
-    throw err;
+    
+    console.log(err);
   }
 }
 
@@ -45,6 +50,8 @@ export async function getPhotoById(id: string): Promise<any> {
       },
       cache: 'no-cache',
     });
+
+    !response.ok && (document.cookie = "token=''; max-age=-1");
     return response.json();
   } catch (err) {
     console.log((err as Error).message);

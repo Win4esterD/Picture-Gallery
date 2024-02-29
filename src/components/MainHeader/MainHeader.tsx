@@ -4,8 +4,8 @@ import {
   OutlinedInput,
   Button,
   useMediaQuery,
-  Avatar,
   Box,
+  Typography,
 } from '@mui/material';
 import {getImagesByQuery} from '@/services/requests';
 import {useState, Dispatch, SetStateAction} from 'react';
@@ -80,13 +80,16 @@ export function MainHeader({
             SEARCH
           </Button>
         </Box>
-        <Avatar
-          sx={headerStyles.avatar}
-          alt="Avatar"
+        <Typography
+          component={!isAuth ? 'span' : 'a'}
+          href="/profile/"
+          sx={headerStyles.signIn}
           onClick={() => {
             !isAuth && setIsDialogOpen(true);
           }}
-        />
+        >
+          {!isAuth ? 'Sign In' : 'My Profile'}
+        </Typography>
       </Box>
     </AppBar>
   );
