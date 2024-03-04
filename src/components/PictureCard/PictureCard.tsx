@@ -5,6 +5,7 @@ import {ImageStyled, LinkStyled} from '..';
 import {queries} from '@/utils/queries/queries';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {utm, unsplashLink} from '@/services/apiVariables';
+import { useRouter } from 'next/navigation';
 
 type PictureCardProps = {
   url: string;
@@ -27,6 +28,7 @@ export function PictureCard({
   profileImage,
   profileLink,
 }: PictureCardProps) {
+  const router = useRouter();
   return (
     <Box
       sx={{
@@ -61,6 +63,7 @@ export function PictureCard({
       />
       <Box
         className="foto-info-popper"
+        onClick={() => router.push(`/photos/${id}`)}
         sx={{
           width: '100%',
           height: '24vw',
