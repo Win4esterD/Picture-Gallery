@@ -63,5 +63,8 @@ export const headerStyles: headerStyles = {
     '&:hover': {
       color: 'orange',
     },
+    [queries.largeTablet]: {
+      fontSize: '0.7rem',
+    },
   },
 };
