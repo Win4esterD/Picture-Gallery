@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import {getImagesByQuery} from '@/services/requests';
-import {useState, Dispatch, SetStateAction} from 'react';
+import {useState, Dispatch, SetStateAction, useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import {queries} from '@/utils/queries/queries';
 import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime';
@@ -32,6 +32,9 @@ export function MainHeader({
   const router: AppRouterInstance = useRouter();
   const smallDesktop: boolean = useMediaQuery(queries.smallDesktop);
   const {setIsDialogOpen, isAuth} = useContext(GlobalContext);
+  const [logoShift, setLogoShift] = useState('-15vw');
+  const [formOpacity, setFormOpacity] = useState('0');
+  const [loginOpacity, setLoginOpacity] = useState('0');
 
   async function peformAnimation(): Promise<void> {
     router.push(`/?query=${searchQuery}&page=1`);
@@ -44,25 +47,44 @@ export function MainHeader({
     setIsPending && setIsPending(false);
   }
 
+  useEffect(() => {
+    setLogoShift('0vw');
+    setFormOpacity('1');
+    setLoginOpacity('1');
+  }, [])
+
   return (
     <AppBar sx={headerStyles.appBar}>
       <Box sx={headerStyles.content}>
-        <ImageStyled
-          src="/images/icons/logo.png"
-          width={50}
-          height={50}
-          priority={true}
-          alt="logo"
-          sx={headerStyles.logo}
-          onClick={() => router.push('/')}
-        />
+        <Box
+          sx={{
+            transition: 'transform 1s',
+            transform: `translateX(${logoShift})`,
+          }}
+        >
+          <ImageStyled
+            src="/images/icons/logo.png"
+            width={50}
+            height={50}
+            priority={true}
+            alt="logo"
+            sx={headerStyles.logo}
+            onClick={() => router.push('/')}
+          />
+        </Box>
+
         <Box
           component="form"
           onSubmit={async e => {
             e.preventDefault();
             await peformAnimation();
           }}
-          sx={{display: 'flex', maxWidth: '65%'}}
+          sx={{
+            display: 'flex',
+            maxWidth: '65%',
+            transition: 'opacity .7s',
+            opacity: formOpacity,
+          }}
         >
           <OutlinedInput
             sx={headerStyles.input}
@@ -83,7 +105,10 @@ export function MainHeader({
         <Typography
           component={!isAuth ? 'span' : 'a'}
           href="/profile/"
-          sx={headerStyles.signIn}
+          sx={Object.assign(headerStyles.signIn, {
+            transition: 'opacity .7s',
+            opacity: loginOpacity,
+          })}
           onClick={() => {
             !isAuth && setIsDialogOpen(true);
           }}

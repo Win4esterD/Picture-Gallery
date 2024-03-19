@@ -21,6 +21,7 @@ export const headerStyles: headerStyles = {
   },
   logo: {
     cursor: 'pointer',
+    display: 'block',
     [queries.smallDesktop]: {
       width: '2.5rem',
       height: '2.5rem',

@@ -5,7 +5,8 @@ import {ImageStyled, LinkStyled} from '..';
 import {queries} from '@/utils/queries/queries';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {utm, unsplashLink} from '@/services/apiVariables';
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
+import {useState} from 'react';
 
 type PictureCardProps = {
   url: string;
@@ -29,12 +30,16 @@ export function PictureCard({
   profileLink,
 }: PictureCardProps) {
   const router = useRouter();
+  const [shift, setShift] = useState('100vh');
   return (
     <Box
+      onLoad={() => setShift('0rem')}
       sx={{
         marginTop: '2rem',
         maxWidth: '90%',
         position: 'relative',
+        transition: 'transform .4s',
+        transform: `translateY(${shift})`,
       }}
     >
       <ImageStyled
@@ -47,6 +52,7 @@ export function PictureCard({
           maxWidth: '100%',
           width: '24vw',
           height: '24vw',
+          borderRadius: '1rem',
           [queries.smallDesktop]: {
             width: '30vw',
             height: '30vw',
@@ -73,6 +79,7 @@ export function PictureCard({
           top: 0,
           opacity: 0,
           transition: 'opacity 0.5s',
+          borderRadius: '1rem',
           '&:hover': {
             opacity: 0.8,
             cursor: 'pointer',
@@ -92,6 +99,7 @@ export function PictureCard({
         }}
       >
         <Typography
+          onClick={e => e.stopPropagation()}
           component="a"
           href={unsplashLink}
           target="_blank"
@@ -113,6 +121,7 @@ export function PictureCard({
           Unsplash
         </Typography>
         <Box
+          onClick={e => e.stopPropagation()}
           sx={{
             display: 'flex',
             width: '90%',
