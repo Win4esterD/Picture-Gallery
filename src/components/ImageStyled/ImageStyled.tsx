@@ -11,6 +11,7 @@ type StyledImage = {
   alt: string;
   priority?: boolean;
   onClick?: EventHandler<SyntheticEvent>;
+  onLoad?: EventHandler<SyntheticEvent>;
 };
 
 export function ImageStyled({
@@ -21,6 +22,7 @@ export function ImageStyled({
   alt,
   priority = false,
   onClick,
+  onLoad,
 }: StyledImage) {
   const IMG = styled(Image)({...sx});
   return (
@@ -31,6 +33,7 @@ export function ImageStyled({
       alt={alt}
       priority={priority}
       onClick={onClick}
+      onLoad={onLoad}
     />
   );
 }
